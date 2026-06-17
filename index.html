@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhD Quest — Galactic Academy Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <header class="hud-bar">
+    <div class="hud-left">
+      <span class="hud-logo">☉ GALACTIC ACADEMY</span>
+      <span class="hud-sep">|</span>
+      <span class="hud-sub">PhD & Career Intelligence System</span>
+    </div>
+    <div class="hud-right">
+      <span class="hud-date" id="hud-date"></span>
+      <span class="status-dot"></span>
+      <span class="hud-status">REBEL SIGNAL: ACTIVE</span>
+    </div>
+  </header>
+  <main class="grid-layout">
+    <section class="col-left">
+      <div class="panel panel-mission">
+        <div class="panel-title"><span class="panel-icon">⎔</span> MISSION CONTROL</div>
+        <div class="mission-avatar">
+          <div class="avatar-ring">
+            <div class="avatar-inner" id="avatar-initials">JD</div>
+          </div>
+          <div class="avatar-info">
+            <div class="editable" contenteditable="true" id="user-name" data-placeholder="Your Name">Padawan Seeker</div>
+            <div class="avatar-rank">DATA JEDI INITIATE</div>
+          </div>
+        </div>
+        <div class="mission-fields">
+          <div class="field-row">
+            <label>Specialization</label>
+            <select id="spec-select" onchange="saveProfile()">
+              <option value="ds">Data Science</option>
+              <option value="cyber">Cybersecurity</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>Target Sector</label>
+            <select id="target-select" onchange="saveProfile()">
+              <option value="eu-all">All Europe</option>
+              <option value="de">Germany</option>
+              <option value="ch">Switzerland</option>
+              <option value="nl">Netherlands</option>
+              <option value="se">Sweden</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>Start Year</label>
+            <select id="year-select" onchange="saveProfile()">
+              <option value="2025">2025</option>
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+            </select>
+          </div>
+        </div>
+        <div class="force-meter">
+          <div class="force-label">
+            <span>Force Level</span>
+            <span id="force-pct">0%</span>
+          </div>
+          <div class="force-track">
+            <div class="force-fill" id="force-fill"></div>
+            <div class="force-glow"></div>
+          </div>
+          <div class="force-desc" id="force-desc">Youngling — Begin your quest</div>
+        </div>
+      </div>
+      <div class="panel panel-quests">
+        <div class="panel-title"><span class="panel-icon">⟁</span> QUEST LOG</div>
+        <div class="quest-categories" id="quest-list"></div>
+        <button class="btn-add-quest" onclick="addCustomQuest()">+ Add Custom Mission</button>
+      </div>
+    </section>
+    <section class="col-center">
+      <div class="panel panel-intel">
+        <div class="panel-title">
+          <span class="panel-icon">◈</span> HOLOGRAPHIC INTELLIGENCE FEED
+          <div class="intel-controls">
+            <button class="btn-filter active" data-filter="all" onclick="filterNews('all', this)">ALL</button>
+            <button class="btn-filter" data-filter="phd" onclick="filterNews('phd', this)">PHD</button>
+            <button class="btn-filter" data-filter="jobs" onclick="filterNews('jobs', this)">JOBS</button>
+            <button class="btn-filter" data-filter="de" onclick="filterNews('de', this)">GERMANY</button>
+            <button class="btn-filter" data-filter="ch" onclick="filterNews('ch', this)">SWITZERLAND</button>
+          </div>
+        </div>
+        <div class="intel-search">
+          <input type="text" id="news-search" placeholder="Search intelligence..." oninput="searchNews(this.value)" />
+          <button class="btn-fetch" onclick="fetchIntelligence()">
+            <span id="fetch-icon">⟳</span> SCAN GALAXY
+          </button>
+        </div>
+        <div class="news-feed" id="news-feed">
+          <div class="news-loading">
+            <div class="loading-spinner"></div>
+            <p>Initializing holographic feed...</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-applications">
+        <div class="panel-title"><span class="panel-icon">◉</span> MISSION DOSSIERS
+          <button class="btn-sm" onclick="openAddApp()">+ NEW DOSSIER</button>
+        </div>
+        <div class="app-list" id="app-list"></div>
+        <div class="app-empty" id="app-empty">No active missions — begin your conquest</div>
+      </div>
+    </section>
+    <section class="col-right">
+      <div class="panel panel-map">
+        <div class="panel-title"><span class="panel-icon">◎</span> UNIVERSE MAP</div>
+        <div class="universe-tabs">
+          <button class="utab active" onclick="switchUniTab('phd', this)">PHD PROGRAMS</button>
+          <button class="utab" onclick="switchUniTab('jobs', this)">CAREER POSTS</button>
+        </div>
+        <div class="uni-list" id="uni-list"></div>
+      </div>
+      <div class="panel panel-timeline">
+        <div class="panel-title"><span class="panel-icon">⊕</span> TEMPORAL MAP</div>
+        <div class="timeline-wrap" id="timeline-wrap"></div>
+        <button class="btn-add-deadline" onclick="openAddDeadline()">+ Add Deadline</button>
+      </div>
+      <div class="panel panel-resources">
+        <div class="panel-title"><span class="panel-icon">◆</span> REBEL ARCHIVES</div>
+        <div class="resources-list" id="resources-list"></div>
+      </div>
+    </section>
+  </main>
+  <div class="modal-overlay" id="app-modal">
+    <div class="modal">
+      <div class="modal-title">NEW MISSION DOSSIER</div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label>Institution Name</label>
+          <input type="text" id="app-name" placeholder="ETH Zurich, TU Munich..." />
+        </div>
+        <div class="form-row">
+          <label>Program Type</label>
+          <select id="app-type">
+            <option value="phd">PhD Program</option>
+            <option value="job">Data Science Job</option>
+            <option value="postdoc">Postdoc</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Country</label>
+          <select id="app-country">
+            <option value="de">Germany 🇩🇪</option>
+            <option value="ch">Switzerland 🇨🇭</option>
+            <option value="nl">Netherlands 🇳🇱</option>
+            <option value="se">Sweden 🇸🇪</option>
+            <option value="other">Other Europe</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Deadline</label>
+          <input type="date" id="app-deadline" />
+        </div>
+        <div class="form-row">
+          <label>Status</label>
+          <select id="app-status">
+            <option value="scouting">Scouting</option>
+            <option value="preparing">Preparing</option>
+            <option value="submitted">Submitted</option>
+            <option value="interview">Interview</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Notes</label>
+          <textarea id="app-notes" rows="3" placeholder="Research group, supervisor contact..."></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="closeModal('app-modal')">ABORT</button>
+        <button class="btn-primary" onclick="saveApplication()">SAVE MISSION</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="deadline-modal">
+    <div class="modal">
+      <div class="modal-title">ADD TEMPORAL MARKER</div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label>Label</label>
+          <input type="text" id="dl-label" placeholder="ETH Zurich PhD deadline" />
+        </div>
+        <div class="form-row">
+          <label>Date</label>
+          <input type="date" id="dl-date" />
+        </div>
+        <div class="form-row">
+          <label>Type</label>
+          <select id="dl-type">
+            <option value="phd">PhD Application</option>
+            <option value="job">Job Application</option>
+            <option value="docs">Documents Due</option>
+            <option value="interview">Interview</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="closeModal('deadline-modal')">ABORT</button>
+        <button class="btn-primary" onclick="saveDeadline()">SET MARKER</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal">
+      <div class="modal-title">UPDATE MISSION STATUS</div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-app-id" />
+        <div class="form-row">
+          <label>Status</label>
+          <select id="edit-status">
+            <option value="scouting">Scouting</option>
+            <option value="preparing">Preparing</option>
+            <option value="submitted">Submitted</option>
+            <option value="interview">Interview</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Notes</label>
+          <textarea id="edit-notes" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="closeModal('edit-modal')">CANCEL</button>
+        <button class="btn-danger" onclick="deleteApplication()">DELETE</button>
+        <button class="btn-primary" onclick="updateApplication()">UPDATE</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="starfield.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="news.js"></script>
+</body>
+</html>
