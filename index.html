@@ -3,350 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PhD Quest — Galactic Academy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <title>My PhD Journey — Europe Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ══════════════════════════════════════
-       GALACTIC ACADEMY — PREMIUM REDESIGN
-       Clean · Visible · Professional
-    ══════════════════════════════════════ */
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #060b14;
-      --bg2:       #0c1628;
-      --bg3:       #101d35;
-      --surface:   #13213d;
-      --surface2:  #1a2d50;
-      --border:    rgba(99,159,255,0.12);
-      --border2:   rgba(99,159,255,0.25);
-      --cyan:      #4db8ff;
-      --cyan2:     #1a8fff;
-      --gold:      #f0c040;
-      --gold2:     #c89a20;
-      --green:     #34d399;
-      --red:       #f87171;
-      --orange:    #fb923c;
-      --purple:    #a78bfa;
-      --text1:     #e8f0ff;
-      --text2:     #8ba4cc;
-      --text3:     #4a6080;
-      --font:      'Inter', sans-serif;
-      --mono:      'JetBrains Mono', monospace;
-      --display:   'Orbitron', monospace;
-      --radius:    10px;
-      --radius-sm: 6px;
+      --bg:       #07090f;
+      --bg2:      #0e1420;
+      --bg3:      #141c2e;
+      --card:     #111827;
+      --border:   rgba(100,160,255,0.14);
+      --border2:  rgba(100,160,255,0.28);
+      --blue:     #5ba4ff;
+      --blue2:    #2b7fff;
+      --gold:     #f0c040;
+      --green:    #34d399;
+      --red:      #f87171;
+      --orange:   #fb923c;
+      --purple:   #a78bfa;
+      --t1:       #dde8ff;
+      --t2:       #7a9cc8;
+      --t3:       #3d5570;
+      --font:     'Inter', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
+      --display:  'Orbitron', monospace;
+      --r:        10px;
+      --r2:       6px;
     }
 
-    html, body { height: 100%; background: var(--bg); color: var(--text1); font-family: var(--font); font-size: 14px; line-height: 1.6; overflow-x: hidden; }
-
-    canvas#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    body { background: var(--bg); color: var(--t1); font-family: var(--font); font-size: 14px; line-height: 1.6; min-height: 100vh; }
 
     /* ── TOP BAR ── */
-    .topbar {
-      position: sticky; top: 0; z-index: 200;
-      background: rgba(6,11,20,0.92);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border2);
-      padding: 0 28px;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
+    .top {
+      background: rgba(7,9,15,0.95); border-bottom: 1px solid var(--border2);
+      backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 100;
+      padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between;
     }
-    .topbar-brand {
-      font-family: var(--display);
-      font-size: 14px; font-weight: 800;
-      letter-spacing: 0.18em;
-      color: var(--gold);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .topbar-brand span { color: var(--text3); font-size: 11px; font-family: var(--mono); letter-spacing: 0.05em; font-weight: 400; }
-    .topbar-right { display: flex; align-items: center; gap: 20px; }
-    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2.5s ease-in-out infinite; }
-    .topbar-date { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-    .topbar-signal { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.06em; }
+    .brand { font-family: var(--display); font-size: 13px; font-weight: 800; letter-spacing: 0.16em; color: var(--gold); }
+    .brand-sub { font-family: var(--mono); font-size: 10px; color: var(--t3); margin-left: 12px; letter-spacing: 0.04em; }
+    .live { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--green); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 7px var(--green); animation: blink 2s ease-in-out infinite; }
+    .top-date { font-family: var(--mono); font-size: 11px; color: var(--t3); margin-right: 16px; }
 
     /* ── LAYOUT ── */
-    .layout {
-      position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 280px 1fr 300px;
-      gap: 20px;
-      padding: 20px 24px;
-      max-width: 1520px;
-      margin: 0 auto;
-      align-items: start;
-    }
-
+    .page { display: grid; grid-template-columns: 260px 1fr 300px; gap: 18px; padding: 20px 22px; max-width: 1440px; margin: 0 auto; align-items: start; }
     .col { display: flex; flex-direction: column; gap: 16px; }
 
     /* ── CARD ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: border-color 0.2s;
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .card-title {
+      padding: 13px 16px 11px; border-bottom: 1px solid var(--border);
+      font-family: var(--display); font-size: 9px; font-weight: 600;
+      letter-spacing: 0.22em; color: var(--blue); display: flex; align-items: center; gap: 8px;
     }
-    .card:hover { border-color: var(--border2); }
-
-    .card-head {
-      padding: 14px 18px 12px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--display);
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.22em;
-      color: var(--cyan);
-    }
-    .card-head-icon { color: var(--gold); font-size: 13px; }
-    .card-head-right { margin-left: auto; }
+    .ct-icon { color: var(--gold); }
+    .ct-right { margin-left: auto; }
 
     /* ── PROFILE ── */
-    .profile-top {
-      padding: 20px 18px 16px;
-      display: flex; align-items: center; gap: 14px;
-      border-bottom: 1px solid var(--border);
+    .profile-top { padding: 18px 16px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 13px; }
+    .ava { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--blue2); background: var(--bg3); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px; font-weight: 600; color: var(--blue); flex-shrink: 0; }
+    .ava-name { font-family: var(--display); font-size: 11px; font-weight: 600; color: var(--t1); outline: none; border-bottom: 1px dashed var(--border2); padding-bottom: 2px; cursor: text; }
+    .ava-name:empty::before { content: attr(data-ph); color: var(--t3); }
+    .ava-rank { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 0.1em; margin-top: 3px; }
+    .profile-fields { padding: 13px 16px; display: flex; flex-direction: column; gap: 9px; }
+    .frow { display: flex; align-items: center; gap: 10px; }
+    .flabel { font-family: var(--mono); font-size: 10px; color: var(--t3); width: 74px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.05em; }
+    select, input[type=text], input[type=date], input[type=url], textarea {
+      background: var(--bg2); border: 1px solid var(--border2); color: var(--t1);
+      font-family: var(--font); font-size: 13px; padding: 7px 10px; border-radius: var(--r2);
+      width: 100%; outline: none; transition: border-color 0.2s;
     }
-    .avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      border: 2px solid var(--cyan2);
-      background: var(--bg3);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--display); font-size: 15px; font-weight: 600;
-      color: var(--cyan); flex-shrink: 0;
-      box-shadow: 0 0 18px rgba(77,184,255,0.2);
-    }
-    .profile-name {
-      font-family: var(--display); font-size: 12px; font-weight: 600;
-      color: var(--text1); outline: none; border-bottom: 1px dashed var(--border2);
-      padding-bottom: 2px; cursor: text; width: 100%;
-    }
-    .profile-name:empty::before { content: attr(data-ph); color: var(--text3); }
-    .profile-rank { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 0.1em; margin-top: 3px; }
-
-    .profile-fields { padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; }
-    .field-row { display: flex; align-items: center; gap: 10px; }
-    .field-label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.06em; width: 88px; flex-shrink: 0; text-transform: uppercase; }
-
-    select, input[type=text], input[type=date], textarea {
-      background: var(--bg2); border: 1px solid var(--border2);
-      color: var(--text1); font-family: var(--font); font-size: 13px;
-      padding: 7px 10px; border-radius: var(--radius-sm); width: 100%; outline: none;
-      transition: border-color 0.2s;
-    }
-    select:focus, input:focus, textarea:focus { border-color: var(--cyan2); }
+    select:focus, input:focus, textarea:focus { border-color: var(--blue2); }
     textarea { resize: vertical; }
 
-    /* ── FORCE METER ── */
-    .force-wrap { padding: 14px 18px 18px; }
-    .force-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .force-title { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
-    .force-pct { font-family: var(--display); font-size: 13px; font-weight: 600; color: var(--gold); }
-    .force-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-    .force-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--cyan2), var(--cyan)); width: 0%; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
-    .force-rank { font-family: var(--mono); font-size: 10px; color: var(--gold2); text-align: center; margin-top: 8px; letter-spacing: 0.05em; }
+    /* ── PROGRESS BAR ── */
+    .prog-wrap { padding: 14px 16px 16px; border-top: 1px solid var(--border); }
+    .prog-top { display: flex; justify-content: space-between; margin-bottom: 7px; }
+    .prog-label { font-family: var(--mono); font-size: 10px; color: var(--t3); text-transform: uppercase; letter-spacing: 0.06em; }
+    .prog-pct { font-family: var(--display); font-size: 14px; font-weight: 600; color: var(--gold); }
+    .prog-bar { height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+    .prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--blue2), var(--blue)); width: 0%; transition: width 0.7s ease; }
+    .prog-rank { font-family: var(--mono); font-size: 10px; color: var(--gold); text-align: center; margin-top: 8px; letter-spacing: 0.04em; }
 
-    /* ── QUEST LOG ── */
-    .quests-body { padding: 12px 18px; max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
-    .q-cat-label { font-family: var(--mono); font-size: 9px; color: var(--gold2); letter-spacing: 0.14em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid rgba(240,192,64,0.12); margin-bottom: 4px; }
-    .q-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 3px 0; }
-    .q-item:hover .q-box { border-color: var(--cyan); }
-    .q-box { width: 16px; height: 16px; border: 1.5px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.15s; }
-    .q-item.done .q-box { background: rgba(77,184,255,0.15); border-color: var(--cyan); color: var(--cyan); }
-    .q-item.done .q-text { color: var(--text3); text-decoration: line-through; }
-    .q-text { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
-    .btn-add-q { display: block; width: calc(100% - 36px); margin: 2px 18px 14px; background: transparent; border: 1px dashed var(--border2); color: var(--text3); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 8px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; }
-    .btn-add-q:hover { border-color: var(--cyan2); color: var(--cyan); }
+    /* ── CHECKLIST ── */
+    .checklist-body { padding: 12px 16px; max-height: 460px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+    .cat-label { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid rgba(240,192,64,0.12); margin-bottom: 3px; }
+    .check-item { display: flex; align-items: flex-start; gap: 9px; cursor: pointer; padding: 3px 0; }
+    .check-item:hover .check-box { border-color: var(--blue); }
+    .check-box { width: 16px; height: 16px; border: 1.5px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.15s; }
+    .check-item.done .check-box { background: rgba(91,164,255,0.15); border-color: var(--blue); color: var(--blue); }
+    .check-item.done .check-text { color: var(--t3); text-decoration: line-through; }
+    .check-text { font-size: 12.5px; color: var(--t2); line-height: 1.5; }
+    .btn-add-task { display: block; width: calc(100% - 32px); margin: 2px 16px 14px; background: transparent; border: 1px dashed var(--border2); color: var(--t3); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 8px; border-radius: var(--r2); cursor: pointer; transition: all 0.2s; }
+    .btn-add-task:hover { border-color: var(--blue2); color: var(--blue); }
 
-    /* ── INTEL FEED ── */
-    .intel-toolbar {
-      padding: 10px 16px;
-      display: flex; gap: 6px; flex-wrap: wrap;
-      border-bottom: 1px solid var(--border);
-      align-items: center;
-    }
-    .filter-btn {
-      background: transparent; border: 1px solid var(--border2); color: var(--text3);
-      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
-      padding: 4px 10px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
-    }
-    .filter-btn.on { background: rgba(77,184,255,0.1); border-color: var(--cyan); color: var(--cyan); }
-
-    .intel-search-row { padding: 10px 16px; display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
-    .intel-search-row input { flex: 1; background: var(--bg2); font-family: var(--mono); font-size: 12px; }
-    .scan-btn {
-      background: rgba(77,184,255,0.1); border: 1px solid var(--cyan2); color: var(--cyan);
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
-      padding: 7px 16px; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap; transition: all 0.2s;
-    }
-    .scan-btn:hover { background: rgba(77,184,255,0.2); }
-    .scan-btn.spinning .spin-icon { display: inline-block; animation: spin 0.8s linear infinite; }
-
-    .news-feed { padding: 12px 16px; max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-
-    .n-loading { text-align: center; padding: 36px 0; color: var(--text3); }
-    .n-spinner { width: 28px; height: 28px; border: 2px solid var(--border2); border-top-color: var(--cyan); border-radius: 50%; margin: 0 auto 12px; animation: spin 0.9s linear infinite; }
-
-    .n-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: 13px 14px; border-left: 3px solid transparent; transition: border-color 0.2s;
-    }
+    /* ── NEWS FEED ── */
+    .filter-row { padding: 10px 16px; display: flex; gap: 5px; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+    .fbtn { background: transparent; border: 1px solid var(--border2); color: var(--t3); font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; padding: 4px 11px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+    .fbtn.on { background: rgba(91,164,255,0.1); border-color: var(--blue); color: var(--blue); }
+    .search-row { padding: 9px 16px; display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+    .search-row input { flex: 1; background: var(--bg2); font-family: var(--mono); font-size: 12px; }
+    .scan-btn { background: rgba(91,164,255,0.1); border: 1px solid var(--blue2); color: var(--blue); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 7px 15px; border-radius: var(--r2); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .scan-btn:hover { background: rgba(91,164,255,0.2); }
+    .scan-btn.spin .sico { display: inline-block; animation: rotate 0.8s linear infinite; }
+    .feed { padding: 12px 16px; max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .feed-empty { text-align: center; padding: 36px; color: var(--t3); font-family: var(--mono); font-size: 11px; }
+    .feed-spinner { width: 26px; height: 26px; border: 2px solid var(--border2); border-top-color: var(--blue); border-radius: 50%; margin: 0 auto 12px; animation: rotate 0.9s linear infinite; }
+    .n-card { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid transparent; border-radius: var(--r2); padding: 12px 13px; transition: border-color 0.2s; }
     .n-card:hover { border-color: var(--border2); }
-    .n-card.c-phd { border-left-color: var(--cyan); }
+    .n-card.c-phd  { border-left-color: var(--blue); }
     .n-card.c-jobs { border-left-color: var(--gold); }
-    .n-card.c-de  { border-left-color: var(--green); }
-    .n-card.c-ch  { border-left-color: var(--orange); }
-    .n-card.c-eu  { border-left-color: var(--purple); }
-
+    .n-card.c-de   { border-left-color: var(--green); }
+    .n-card.c-ch   { border-left-color: var(--orange); }
+    .n-card.c-eu   { border-left-color: var(--purple); }
     .n-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; flex-wrap: wrap; }
-    .n-badge { font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
-    .b-phd  { background: rgba(77,184,255,0.12); color: var(--cyan); }
+    .nbadge { font-family: var(--mono); font-size: 9px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+    .b-phd  { background: rgba(91,164,255,0.12); color: var(--blue); }
     .b-jobs { background: rgba(240,192,64,0.12); color: var(--gold); }
     .b-de   { background: rgba(52,211,153,0.12); color: var(--green); }
     .b-ch   { background: rgba(251,146,60,0.12); color: var(--orange); }
     .b-eu   { background: rgba(167,139,250,0.12); color: var(--purple); }
-    .n-src  { font-family: var(--mono); font-size: 10px; color: var(--text3); }
-    .n-date { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-left: auto; }
-    .n-title { font-size: 13.5px; font-weight: 600; color: var(--text1); line-height: 1.45; margin-bottom: 5px; }
-    .n-summary { font-size: 12px; color: var(--text2); line-height: 1.6; }
-    .n-link { font-family: var(--mono); font-size: 10px; color: var(--cyan2); text-decoration: none; display: inline-block; margin-top: 6px; letter-spacing: 0.03em; }
-    .n-link:hover { color: var(--cyan); }
+    .n-src  { font-family: var(--mono); font-size: 10px; color: var(--t3); }
+    .n-date { font-family: var(--mono); font-size: 10px; color: var(--t3); margin-left: auto; }
+    .n-title { font-size: 13px; font-weight: 600; color: var(--t1); line-height: 1.45; margin-bottom: 4px; }
+    .n-summary { font-size: 12px; color: var(--t2); line-height: 1.6; }
+    .n-link { font-family: var(--mono); font-size: 10px; color: var(--blue2); text-decoration: none; display: inline-block; margin-top: 5px; }
+    .n-link:hover { color: var(--blue); }
 
     /* ── APPLICATIONS ── */
-    .app-list { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; }
-    .app-empty { text-align: center; padding: 28px; color: var(--text3); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; }
-    .a-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: 11px 13px; display: flex; align-items: center; gap: 11px; cursor: pointer; transition: border-color 0.2s;
-    }
+    .app-list { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+    .app-empty-msg { text-align: center; padding: 28px; color: var(--t3); font-family: var(--mono); font-size: 11px; line-height: 1.7; }
+    .a-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r2); padding: 11px 13px; display: flex; align-items: center; gap: 11px; cursor: pointer; transition: border-color 0.2s; }
     .a-card:hover { border-color: var(--border2); }
-    .a-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .s-scouting  { background: var(--text3); }
+    .a-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .s-scouting  { background: var(--t3); }
     .s-preparing { background: var(--gold); box-shadow: 0 0 6px rgba(240,192,64,0.4); }
-    .s-submitted { background: var(--cyan); box-shadow: 0 0 6px rgba(77,184,255,0.4); }
+    .s-submitted { background: var(--blue); box-shadow: 0 0 6px rgba(91,164,255,0.4); }
     .s-interview { background: var(--orange); box-shadow: 0 0 6px rgba(251,146,60,0.4); }
     .s-offer     { background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.5); }
     .s-rejected  { background: var(--red); }
     .a-info { flex: 1; min-width: 0; }
-    .a-name { font-size: 13px; font-weight: 500; color: var(--text1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .a-sub  { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 2px; }
+    .a-name { font-size: 13px; font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .a-sub  { font-family: var(--mono); font-size: 10px; color: var(--t3); margin-top: 2px; }
     .a-days { font-family: var(--mono); font-size: 11px; flex-shrink: 0; }
-    .d-soon { color: var(--red); }
-    .d-ok   { color: var(--text3); }
-    .d-past { color: var(--text3); text-decoration: line-through; }
-
-    /* ── BUTTONS ── */
-    .btn-sm {
-      background: transparent; border: 1px solid var(--border2); color: var(--text2);
-      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
-      padding: 4px 12px; border-radius: 20px; cursor: pointer; margin-left: auto; transition: all 0.2s;
-    }
-    .btn-sm:hover { border-color: var(--cyan); color: var(--cyan); }
+    .d-soon { color: var(--red); font-weight: 600; }
+    .d-ok   { color: var(--t3); }
+    .d-past { color: var(--t3); opacity: 0.5; }
 
     /* ── UNIVERSE MAP ── */
     .u-tabs { display: flex; border-bottom: 1px solid var(--border); }
-    .u-tab {
-      flex: 1; background: transparent; border: none; border-bottom: 2px solid transparent;
-      color: var(--text3); font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em;
-      padding: 11px; cursor: pointer; transition: all 0.2s; margin-bottom: -1px;
-    }
-    .u-tab:hover { color: var(--text2); }
-    .u-tab.on { color: var(--cyan); border-bottom-color: var(--cyan); }
-    .u-list { padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; }
-    .u-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 13px; transition: border-color 0.2s; }
+    .utab { flex: 1; background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; padding: 11px; cursor: pointer; transition: all 0.2s; margin-bottom: -1px; }
+    .utab:hover { color: var(--t2); }
+    .utab.on { color: var(--blue); border-bottom-color: var(--blue); }
+    .u-list { padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto; }
+    .u-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r2); padding: 11px 12px; transition: border-color 0.2s; }
     .u-card:hover { border-color: var(--border2); }
-    .u-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-    .u-name { font-size: 12.5px; font-weight: 500; color: var(--text1); line-height: 1.4; }
+    .u-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+    .u-name { font-size: 12.5px; font-weight: 500; color: var(--t1); line-height: 1.4; }
     .u-flag { font-size: 15px; flex-shrink: 0; }
-    .u-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
-    .u-tag { font-family: var(--mono); font-size: 9px; color: var(--text3); background: var(--bg3); border: 1px solid var(--border); padding: 2px 7px; border-radius: 20px; }
-    .u-dl { font-family: var(--mono); font-size: 10px; color: var(--gold2); margin-top: 6px; }
-    .u-link { font-family: var(--mono); font-size: 10px; color: var(--cyan2); text-decoration: none; display: inline-block; margin-top: 4px; }
-    .u-link:hover { color: var(--cyan); }
+    .u-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+    .u-tag { font-family: var(--mono); font-size: 9px; color: var(--t3); background: var(--bg3); border: 1px solid var(--border); padding: 2px 7px; border-radius: 20px; }
+    .u-dl { font-family: var(--mono); font-size: 10px; color: var(--gold); margin-top: 5px; }
+    .u-link { font-family: var(--mono); font-size: 10px; color: var(--blue2); text-decoration: none; display: inline-block; margin-top: 4px; }
+    .u-link:hover { color: var(--blue); }
+
+    /* ── JOB PORTALS ── */
+    .portals { padding: 12px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .portal { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r2); padding: 9px 11px; text-decoration: none; display: flex; align-items: center; gap: 9px; transition: border-color 0.2s; }
+    .portal:hover { border-color: var(--blue2); }
+    .portal-icon { font-size: 17px; flex-shrink: 0; }
+    .portal-name { font-size: 11.5px; font-weight: 500; color: var(--t1); }
+    .portal-desc { font-family: var(--mono); font-size: 9px; color: var(--t3); margin-top: 1px; }
+    .portal-arr { color: var(--blue2); font-size: 11px; margin-left: auto; }
 
     /* ── TIMELINE ── */
-    .tl-wrap { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; }
+    .tl-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; max-height: 290px; overflow-y: auto; }
     .tl-row { display: flex; gap: 12px; align-items: flex-start; position: relative; }
     .tl-row::before { content: ''; position: absolute; left: 7px; top: 18px; bottom: -10px; width: 1px; background: var(--border); }
     .tl-row:last-child::before { display: none; }
     .tl-dot { width: 15px; height: 15px; border-radius: 50%; border: 2px solid; flex-shrink: 0; margin-top: 2px; background: var(--bg); }
-    .td-phd  { border-color: var(--cyan); box-shadow: 0 0 6px rgba(77,184,255,0.3); }
-    .td-job  { border-color: var(--gold); box-shadow: 0 0 6px rgba(240,192,64,0.3); }
+    .td-phd  { border-color: var(--blue); box-shadow: 0 0 6px rgba(91,164,255,0.3); }
+    .td-job  { border-color: var(--gold); }
     .td-docs { border-color: var(--orange); }
     .td-interview { border-color: var(--green); }
     .tl-body { flex: 1; }
-    .tl-label { font-size: 12.5px; font-weight: 500; color: var(--text1); }
-    .tl-date  { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+    .tl-label { font-size: 12.5px; font-weight: 500; color: var(--t1); }
+    .tl-date  { font-family: var(--mono); font-size: 10px; color: var(--t3); margin-top: 1px; }
     .tl-days  { font-family: var(--mono); font-size: 11px; flex-shrink: 0; margin-left: auto; align-self: center; }
-    .td-urgent { color: var(--red); }
+    .td-urgent { color: var(--red); font-weight: 600; }
     .td-warn   { color: var(--orange); }
     .td-ok     { color: var(--green); }
-    .td-past   { color: var(--text3); }
-    .btn-add-tl {
-      display: block; width: calc(100% - 32px); margin: 0 16px 14px;
-      background: transparent; border: 1px dashed var(--border2); color: var(--text3);
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
-      padding: 7px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s;
-    }
-    .btn-add-tl:hover { border-color: var(--gold2); color: var(--gold2); }
-
-    /* ── JOB PORTALS ── */
-    .portals-grid { padding: 12px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .portal-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: 10px 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s;
-    }
-    .portal-card:hover { border-color: var(--cyan2); }
-    .portal-icon { font-size: 18px; flex-shrink: 0; }
-    .portal-name { font-size: 12px; font-weight: 500; color: var(--text1); }
-    .portal-desc { font-family: var(--mono); font-size: 9px; color: var(--text3); margin-top: 1px; }
-    .portal-arrow { color: var(--cyan2); font-size: 11px; margin-left: auto; }
+    .td-past   { color: var(--t3); }
+    .btn-add { display: block; width: calc(100% - 32px); margin: 0 16px 14px; background: transparent; border: 1px dashed var(--border2); color: var(--t3); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 8px; border-radius: var(--r2); cursor: pointer; transition: all 0.2s; }
+    .btn-add:hover { border-color: var(--blue2); color: var(--blue); }
 
     /* ── RESOURCES ── */
     .res-list { padding: 10px 14px; display: flex; flex-direction: column; gap: 7px; }
-    .res-item {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: 9px 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s;
-    }
+    .res-item { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r2); padding: 9px 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s; }
     .res-item:hover { border-color: var(--border2); }
     .res-icon { font-size: 16px; flex-shrink: 0; }
-    .res-name { font-size: 12.5px; font-weight: 500; color: var(--text1); }
-    .res-desc { font-family: var(--mono); font-size: 9px; color: var(--text3); margin-top: 1px; }
-    .res-arr  { color: var(--cyan2); margin-left: auto; font-size: 12px; }
+    .res-name { font-size: 12.5px; font-weight: 500; color: var(--t1); }
+    .res-desc { font-family: var(--mono); font-size: 9px; color: var(--t3); margin-top: 1px; }
+    .res-arr  { color: var(--blue2); margin-left: auto; font-size: 12px; }
 
     /* ── MODALS ── */
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 500; display: none; align-items: center; justify-content: center; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); z-index: 500; display: none; align-items: center; justify-content: center; }
     .overlay.open { display: flex; }
-    .modal {
-      background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius);
-      width: 480px; max-width: 95vw; max-height: 90vh; overflow-y: auto; position: relative;
-    }
-    .modal::before { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-    .modal-head { font-family: var(--display); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; color: var(--cyan); padding: 20px 20px 14px; border-bottom: 1px solid var(--border); }
+    .modal { background: var(--card); border: 1px solid var(--border2); border-radius: var(--r); width: 500px; max-width: 95vw; max-height: 90vh; overflow-y: auto; position: relative; }
+    .modal::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 1px; background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+    .modal-head { font-family: var(--display); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: var(--blue); padding: 18px 20px 13px; border-bottom: 1px solid var(--border); }
     .modal-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 13px; }
-    .f-row { display: flex; flex-direction: column; gap: 6px; }
-    .f-row label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; }
+    .fgroup { display: flex; flex-direction: column; gap: 5px; }
+    .fgroup label { font-family: var(--mono); font-size: 10px; color: var(--t3); letter-spacing: 0.08em; text-transform: uppercase; }
+    .fgroup .hint { font-size: 11px; color: var(--t3); font-style: italic; margin-top: 3px; }
     .modal-foot { padding: 13px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
-    .modal-foot button {
-      background: transparent; border: 1px solid var(--border2); color: var(--text2);
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
-      padding: 8px 18px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s;
-    }
-    .modal-foot button:hover { border-color: var(--text2); color: var(--text1); }
-    .btn-primary { background: rgba(77,184,255,0.1) !important; border-color: var(--cyan2) !important; color: var(--cyan) !important; }
-    .btn-primary:hover { background: rgba(77,184,255,0.2) !important; }
-    .btn-danger { background: rgba(248,113,113,0.1) !important; border-color: var(--red) !important; color: var(--red) !important; }
+    .mfoot-btn { background: transparent; border: 1px solid var(--border2); color: var(--t2); font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; padding: 8px 18px; border-radius: var(--r2); cursor: pointer; transition: all 0.2s; }
+    .mfoot-btn:hover { border-color: var(--t2); color: var(--t1); }
+    .mfoot-btn.primary { background: rgba(91,164,255,0.1); border-color: var(--blue2); color: var(--blue); }
+    .mfoot-btn.primary:hover { background: rgba(91,164,255,0.2); }
+    .mfoot-btn.danger  { background: rgba(248,113,113,0.1); border-color: var(--red); color: var(--red); }
+
+    /* ── BTN SM ── */
+    .btn-sm { background: transparent; border: 1px solid var(--border2); color: var(--t2); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 20px; cursor: pointer; margin-left: auto; transition: all 0.2s; }
+    .btn-sm:hover { border-color: var(--blue); color: var(--blue); }
 
     /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: 22px; right: 22px; z-index: 9999;
-      background: var(--surface2); border: 1px solid var(--border2); border-left: 3px solid var(--cyan);
-      color: var(--text1); font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
-      padding: 11px 18px; border-radius: var(--radius-sm);
-      opacity: 0; transform: translateY(6px); transition: all 0.25s; pointer-events: none;
-    }
+    .toast { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: var(--card); border: 1px solid var(--border2); border-left: 3px solid var(--blue); color: var(--t1); font-family: var(--mono); font-size: 11px; padding: 11px 18px; border-radius: var(--r2); opacity: 0; transform: translateY(6px); transition: all 0.25s; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateY(0); }
 
     /* ── SCROLLBAR ── */
@@ -355,255 +238,281 @@
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
     /* ── ANIMATIONS ── */
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    .n-card, .a-card, .u-card { animation: fadeUp 0.25s ease; }
+    @keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes up { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+    .n-card, .a-card, .u-card { animation: up 0.2s ease; }
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1100px) { .layout { grid-template-columns: 260px 1fr; } .col:last-child { grid-column: 1 / -1; } }
-    @media(max-width:700px)  { .layout { grid-template-columns: 1fr; padding: 12px; } .topbar-date,.topbar-signal { display: none; } }
+    @media(max-width:1100px) { .page { grid-template-columns: 250px 1fr; } .col:last-child { grid-column: 1 / -1; } }
+    @media(max-width:680px)  { .page { grid-template-columns: 1fr; padding: 12px; } .brand-sub { display: none; } }
   </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
-
 <!-- TOP BAR -->
-<header class="topbar">
-  <div class="topbar-brand">
-    ◎ GALACTIC ACADEMY
-    <span>PhD & Career Intelligence System</span>
+<header class="top">
+  <div style="display:flex;align-items:center">
+    <span class="brand">⋆ MY PHD JOURNEY</span>
+    <span class="brand-sub">Europe · Data Science & Cybersecurity</span>
   </div>
-  <div class="topbar-right">
-    <span class="topbar-date" id="topbar-date"></span>
-    <div class="live-dot"></div>
-    <span class="topbar-signal">SIGNAL ACTIVE</span>
+  <div style="display:flex;align-items:center;gap:16px">
+    <span class="top-date" id="topdate"></span>
+    <div class="live"><div class="dot"></div>TRACKING</div>
   </div>
 </header>
 
-<main class="layout">
+<div class="page">
 
-  <!-- ══ LEFT COLUMN ══ -->
+  <!-- ══ LEFT — Profile + Checklist ══ -->
   <div class="col">
 
-    <!-- Profile / Mission Control -->
+    <!-- Who I Am -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">⎔</span> MISSION CONTROL</div>
+      <div class="card-title"><span class="ct-icon">◎</span> WHO I AM</div>
       <div class="profile-top">
-        <div class="avatar" id="avatar-initials">PS</div>
+        <div class="ava" id="ava-initials">?</div>
         <div style="flex:1;min-width:0">
-          <div class="profile-name" contenteditable="true" id="user-name" data-ph="Your Name">Padawan Seeker</div>
-          <div class="profile-rank">DATA JEDI INITIATE</div>
+          <div class="ava-name" contenteditable="true" id="my-name" data-ph="Type your name..."></div>
+          <div class="ava-rank" id="my-rank">PHD SEEKER</div>
         </div>
       </div>
       <div class="profile-fields">
-        <div class="field-row">
-          <div class="field-label">Focus</div>
-          <select id="spec-select" onchange="saveProfile()">
+        <div class="frow">
+          <div class="flabel">Field</div>
+          <select id="sel-field" onchange="saveMe()">
             <option value="ds">Data Science</option>
             <option value="cyber">Cybersecurity</option>
             <option value="both">Both</option>
           </select>
         </div>
-        <div class="field-row">
-          <div class="field-label">Region</div>
-          <select id="target-select" onchange="saveProfile()">
-            <option value="eu-all">All Europe</option>
+        <div class="frow">
+          <div class="flabel">Country</div>
+          <select id="sel-country" onchange="saveMe()">
+            <option value="eu">All of Europe</option>
             <option value="de">Germany 🇩🇪</option>
             <option value="ch">Switzerland 🇨🇭</option>
             <option value="nl">Netherlands 🇳🇱</option>
             <option value="se">Sweden 🇸🇪</option>
           </select>
         </div>
-        <div class="field-row">
-          <div class="field-label">Start Year</div>
-          <select id="year-select" onchange="saveProfile()">
+        <div class="frow">
+          <div class="flabel">Start</div>
+          <select id="sel-year" onchange="saveMe()">
             <option value="2025">2025</option>
             <option value="2026" selected>2026</option>
             <option value="2027">2027</option>
           </select>
         </div>
       </div>
-      <!-- Force Meter -->
-      <div class="force-wrap" style="border-top:1px solid var(--border)">
-        <div class="force-top">
-          <div class="force-title">Force Level</div>
-          <div class="force-pct" id="force-pct">0%</div>
+      <!-- Overall Progress -->
+      <div class="prog-wrap">
+        <div class="prog-top">
+          <div class="prog-label">My Progress</div>
+          <div class="prog-pct" id="prog-pct">0%</div>
         </div>
-        <div class="force-bar"><div class="force-fill" id="force-fill"></div></div>
-        <div class="force-rank" id="force-rank">Youngling — Begin your quest</div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+        <div class="prog-rank" id="prog-rank">Just getting started</div>
       </div>
     </div>
 
-    <!-- Quest Log -->
+    <!-- My Checklist -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">⟁</span> QUEST LOG</div>
-      <div class="quests-body" id="quest-list"></div>
-      <button class="btn-add-q" onclick="addCustomQuest()">+ Add Custom Mission</button>
+      <div class="card-title"><span class="ct-icon">✦</span> THINGS TO DO</div>
+      <div class="checklist-body" id="checklist"></div>
+      <button class="btn-add-task" onclick="addMyTask()">+ Add your own task</button>
     </div>
 
   </div>
 
-  <!-- ══ CENTER COLUMN ══ -->
+  <!-- ══ CENTER — News + My Applications ══ -->
   <div class="col">
 
-    <!-- Intelligence Feed -->
+    <!-- Daily News -->
     <div class="card">
-      <div class="card-head">
-        <span class="card-head-icon">◈</span> HOLOGRAPHIC INTELLIGENCE FEED
-        <div class="card-head-right" style="display:flex;gap:5px;flex-wrap:wrap">
-          <button class="filter-btn on" onclick="setFilter('all',this)">ALL</button>
-          <button class="filter-btn" onclick="setFilter('phd',this)">PHD</button>
-          <button class="filter-btn" onclick="setFilter('jobs',this)">JOBS</button>
-          <button class="filter-btn" onclick="setFilter('de',this)">DE</button>
-          <button class="filter-btn" onclick="setFilter('ch',this)">CH</button>
+      <div class="card-title">
+        <span class="ct-icon">◈</span> DAILY PHD & JOB NEWS
+        <div class="ct-right" style="display:flex;gap:5px;flex-wrap:wrap">
+          <button class="fbtn on" onclick="setFilter('all',this)">ALL</button>
+          <button class="fbtn" onclick="setFilter('phd',this)">PHD</button>
+          <button class="fbtn" onclick="setFilter('jobs',this)">JOBS</button>
+          <button class="fbtn" onclick="setFilter('de',this)">GERMANY</button>
+          <button class="fbtn" onclick="setFilter('ch',this)">SWISS</button>
         </div>
       </div>
-      <div class="intel-toolbar" style="padding:8px 16px;gap:5px">
-        <!-- filter pills already in head -->
+      <div class="search-row">
+        <input type="text" id="news-search" placeholder="Search news..." oninput="searchNews(this.value)" />
+        <button class="scan-btn" id="scan-btn" onclick="loadNews()"><span class="sico">⟳</span> REFRESH</button>
       </div>
-      <div class="intel-search-row">
-        <input type="text" id="news-q" placeholder="Search transmissions..." oninput="searchNews(this.value)" />
-        <button class="scan-btn" id="scan-btn" onclick="fetchNews()"><span class="spin-icon">⟳</span> SCAN GALAXY</button>
-      </div>
-      <div class="news-feed" id="news-feed">
-        <div class="n-loading"><div class="n-spinner"></div><p>Initializing holographic feed...</p></div>
+      <div class="feed" id="news-feed">
+        <div class="feed-empty"><div class="feed-spinner"></div>Loading today's news...</div>
       </div>
     </div>
 
-    <!-- Applications -->
+    <!-- My Applications -->
     <div class="card">
-      <div class="card-head">
-        <span class="card-head-icon">◉</span> MISSION DOSSIERS
-        <button class="btn-sm" onclick="openAddApp()">+ NEW DOSSIER</button>
+      <div class="card-title">
+        <span class="ct-icon">◉</span> MY APPLICATIONS
+        <button class="btn-sm" onclick="openAddApp()">+ ADD NEW</button>
       </div>
       <div class="app-list" id="app-list"></div>
-      <div class="app-empty" id="app-empty">No active missions — begin your conquest</div>
+      <div class="app-empty-msg" id="app-empty">
+        No applications yet.<br>Click <strong>+ ADD NEW</strong> to add a university or job you are applying to.
+      </div>
     </div>
 
   </div>
 
-  <!-- ══ RIGHT COLUMN ══ -->
+  <!-- ══ RIGHT — Map + Portals + Timeline + Resources ══ -->
   <div class="col">
 
-    <!-- Universe Map -->
+    <!-- University & Job List -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">◎</span> UNIVERSE MAP</div>
+      <div class="card-title"><span class="ct-icon">◆</span> TOP PROGRAMS</div>
       <div class="u-tabs">
-        <button class="u-tab on" onclick="switchTab('phd',this)">PHD PROGRAMS</button>
-        <button class="u-tab" onclick="switchTab('jobs',this)">CAREER POSTS</button>
+        <button class="utab on" onclick="switchTab('phd',this)">PHD PROGRAMS</button>
+        <button class="utab" onclick="switchTab('jobs',this)">JOB POSTS</button>
       </div>
       <div class="u-list" id="u-list"></div>
     </div>
 
     <!-- Job Portals -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">◆</span> JOB PORTALS</div>
-      <div class="portals-grid" id="portals-grid"></div>
+      <div class="card-title"><span class="ct-icon">⊞</span> JOB PORTALS</div>
+      <div class="portals" id="portals"></div>
     </div>
 
-    <!-- Timeline -->
+    <!-- My Deadlines -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">⊕</span> DEADLINE TIMELINE</div>
-      <div class="tl-wrap" id="tl-wrap"></div>
-      <button class="btn-add-tl" onclick="openAddDeadline()">+ Add Deadline</button>
+      <div class="card-title"><span class="ct-icon">⊕</span> MY DEADLINES</div>
+      <div class="tl-list" id="tl-list"></div>
+      <button class="btn-add" onclick="openAddDeadline()">+ Add a deadline</button>
     </div>
 
-    <!-- Resources -->
+    <!-- Useful Links -->
     <div class="card">
-      <div class="card-head"><span class="card-head-icon">⊞</span> REBEL ARCHIVES</div>
+      <div class="card-title"><span class="ct-icon">★</span> USEFUL LINKS</div>
       <div class="res-list" id="res-list"></div>
     </div>
 
   </div>
-</main>
+</div>
 
-<!-- ══ MODALS ══ -->
-<div class="overlay" id="add-app-modal">
+<!-- ══ ADD APPLICATION MODAL ══ -->
+<div class="overlay" id="modal-add-app">
   <div class="modal">
-    <div class="modal-head">NEW MISSION DOSSIER</div>
+    <div class="modal-head">ADD A UNIVERSITY OR JOB</div>
     <div class="modal-body">
-      <div class="f-row"><label>Institution</label><input type="text" id="a-name" placeholder="ETH Zurich, TU Munich..." /></div>
-      <div class="f-row"><label>Type</label>
+      <div class="fgroup">
+        <label>University or Company Name</label>
+        <input type="text" id="a-name" placeholder="e.g. ETH Zurich, TU Munich, Google..." />
+      </div>
+      <div class="fgroup">
+        <label>What are you applying for?</label>
         <select id="a-type">
           <option value="phd">PhD Program</option>
           <option value="job">Job / Industry</option>
           <option value="postdoc">Postdoc</option>
         </select>
       </div>
-      <div class="f-row"><label>Country</label>
+      <div class="fgroup">
+        <label>Country</label>
         <select id="a-country">
           <option value="de">Germany 🇩🇪</option>
           <option value="ch">Switzerland 🇨🇭</option>
           <option value="nl">Netherlands 🇳🇱</option>
           <option value="se">Sweden 🇸🇪</option>
-          <option value="other">Other Europe</option>
+          <option value="other">Other</option>
         </select>
       </div>
-      <div class="f-row"><label>Deadline</label><input type="date" id="a-deadline" /></div>
-      <div class="f-row"><label>Status</label>
+      <div class="fgroup">
+        <label>Deadline Date</label>
+        <input type="date" id="a-deadline" />
+        <div class="hint">Leave empty if you don't know yet</div>
+      </div>
+      <div class="fgroup">
+        <label>Current Status</label>
         <select id="a-status">
-          <option value="scouting">Scouting</option>
-          <option value="preparing">Preparing</option>
-          <option value="submitted">Submitted</option>
-          <option value="interview">Interview</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
+          <option value="scouting">Just looking</option>
+          <option value="preparing">Getting ready</option>
+          <option value="submitted">Applied</option>
+          <option value="interview">Interview stage</option>
+          <option value="offer">Got an offer!</option>
+          <option value="rejected">Not selected</option>
         </select>
       </div>
-      <div class="f-row"><label>Notes</label><textarea id="a-notes" rows="3" placeholder="Supervisor name, research group..."></textarea></div>
+      <div class="fgroup">
+        <label>My Notes (supervisor, research group, links...)</label>
+        <textarea id="a-notes" rows="4" placeholder="Write anything you want to remember about this place..."></textarea>
+      </div>
+      <div class="fgroup">
+        <label>Program / Job Link (optional)</label>
+        <input type="url" id="a-url" placeholder="https://..." />
+      </div>
     </div>
     <div class="modal-foot">
-      <button onclick="closeModal('add-app-modal')">CANCEL</button>
-      <button class="btn-primary" onclick="saveApp()">SAVE MISSION</button>
+      <button class="mfoot-btn" onclick="closeModal('modal-add-app')">CANCEL</button>
+      <button class="mfoot-btn primary" onclick="saveApp()">SAVE</button>
     </div>
   </div>
 </div>
 
-<div class="overlay" id="edit-app-modal">
+<!-- ══ EDIT APPLICATION MODAL ══ -->
+<div class="overlay" id="modal-edit-app">
   <div class="modal">
-    <div class="modal-head">UPDATE MISSION STATUS</div>
+    <div class="modal-head">UPDATE APPLICATION</div>
     <div class="modal-body">
       <input type="hidden" id="e-id" />
-      <div class="f-row"><label>Status</label>
+      <div class="fgroup">
+        <label>Current Status</label>
         <select id="e-status">
-          <option value="scouting">Scouting</option>
-          <option value="preparing">Preparing</option>
-          <option value="submitted">Submitted</option>
-          <option value="interview">Interview</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
+          <option value="scouting">Just looking</option>
+          <option value="preparing">Getting ready</option>
+          <option value="submitted">Applied</option>
+          <option value="interview">Interview stage</option>
+          <option value="offer">Got an offer!</option>
+          <option value="rejected">Not selected</option>
         </select>
       </div>
-      <div class="f-row"><label>Notes</label><textarea id="e-notes" rows="3"></textarea></div>
+      <div class="fgroup">
+        <label>My Notes</label>
+        <textarea id="e-notes" rows="4" placeholder="Update your notes..."></textarea>
+      </div>
     </div>
     <div class="modal-foot">
-      <button onclick="closeModal('edit-app-modal')">CANCEL</button>
-      <button class="btn-danger" onclick="deleteApp()">DELETE</button>
-      <button class="btn-primary" onclick="updateApp()">UPDATE</button>
+      <button class="mfoot-btn" onclick="closeModal('modal-edit-app')">CANCEL</button>
+      <button class="mfoot-btn danger" onclick="deleteApp()">DELETE</button>
+      <button class="mfoot-btn primary" onclick="updateApp()">UPDATE</button>
     </div>
   </div>
 </div>
 
-<div class="overlay" id="dl-modal">
+<!-- ══ ADD DEADLINE MODAL ══ -->
+<div class="overlay" id="modal-deadline">
   <div class="modal">
-    <div class="modal-head">ADD DEADLINE</div>
+    <div class="modal-head">ADD A DEADLINE</div>
     <div class="modal-body">
-      <div class="f-row"><label>Label</label><input type="text" id="dl-label" placeholder="ETH Zurich PhD deadline" /></div>
-      <div class="f-row"><label>Date</label><input type="date" id="dl-date" /></div>
-      <div class="f-row"><label>Type</label>
+      <div class="fgroup">
+        <label>What is this deadline for?</label>
+        <input type="text" id="dl-label" placeholder="e.g. ETH Zurich application, DAAD scholarship..." />
+      </div>
+      <div class="fgroup">
+        <label>Date</label>
+        <input type="date" id="dl-date" />
+      </div>
+      <div class="fgroup">
+        <label>Type</label>
         <select id="dl-type">
           <option value="phd">PhD Application</option>
           <option value="job">Job Application</option>
-          <option value="docs">Documents Due</option>
+          <option value="docs">Document Submission</option>
           <option value="interview">Interview</option>
         </select>
       </div>
     </div>
     <div class="modal-foot">
-      <button onclick="closeModal('dl-modal')">CANCEL</button>
-      <button class="btn-primary" onclick="saveDeadline()">SET DEADLINE</button>
+      <button class="mfoot-btn" onclick="closeModal('modal-deadline')">CANCEL</button>
+      <button class="mfoot-btn primary" onclick="saveDeadline()">ADD</button>
     </div>
   </div>
 </div>
@@ -611,386 +520,486 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════
-// STARFIELD
-// ══════════════════════════════════
-(function(){
-  const c=document.getElementById('stars'),ctx=c.getContext('2d');
-  let stars=[];
-  function resize(){c.width=innerWidth;c.height=innerHeight;}
-  function init(){stars=[];for(let i=0;i<180;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+0.2,a:Math.random()*0.6+0.1,sp:Math.random()*0.02+0.004,ph:Math.random()*Math.PI*2});}
-  function draw(){ctx.clearRect(0,0,c.width,c.height);for(const s of stars){s.ph+=s.sp;const a=s.a*(Math.sin(s.ph)*0.3+0.7);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(180,215,255,${a})`;ctx.fill();}requestAnimationFrame(draw);}
-  resize();init();draw();
-  window.addEventListener('resize',()=>{resize();init();});
-})();
-
-// ══════════════════════════════════
-// DATA
-// ══════════════════════════════════
+// ════════════════════════════════════
+// STATIC DATA
+// ════════════════════════════════════
 const PHD_PROGRAMS = [
-  {name:"ETH Zurich — Data Science",flag:"🇨🇭",tags:["ML","Privacy AI","Top 10"],deadline:"Dec 15, 2025",url:"https://inf.ethz.ch/doctorate.html"},
-  {name:"EPFL — Computer & Comm. Sciences",flag:"🇨🇭",tags:["AI","Systems","Rolling"],deadline:"Jan 15, 2026",url:"https://www.epfl.ch/education/phd/"},
-  {name:"TU Munich — Informatics (AI)",flag:"🇩🇪",tags:["AI/ML","Excellence Initiative"],deadline:"Jan 31, 2026",url:"https://www.tum.de/en/studies/degree-programs/detail/doctor-of-informatics"},
-  {name:"LMU Munich — Data Science",flag:"🇩🇪",tags:["Statistics","Data Science"],deadline:"Feb 28, 2026",url:"https://www.en.statistik.uni-muenchen.de/phd/"},
-  {name:"KIT — Cybersecurity",flag:"🇩🇪",tags:["Security","Networks"],deadline:"Ongoing",url:"https://www.kit.edu/english/"},
-  {name:"Heidelberg University — ML",flag:"🇩🇪",tags:["Machine Learning","Bioinformatics"],deadline:"Mar 1, 2026",url:"https://www.uni-heidelberg.de/en/study/all-subjects/graduate-studies"},
-  {name:"University of Zurich — Informatics",flag:"🇨🇭",tags:["CS","ML"],deadline:"Rolling",url:"https://www.ifi.uzh.ch/en.html"},
+  {name:"ETH Zurich — Data Science",flag:"🇨🇭",tags:["ML","Privacy AI","Top 10 World"],deadline:"Dec 15, 2025",url:"https://inf.ethz.ch/doctorate.html"},
+  {name:"EPFL — Computer Science & AI",flag:"🇨🇭",tags:["AI","Systems"],deadline:"Jan 15, 2026",url:"https://www.epfl.ch/education/phd/"},
+  {name:"TU Munich — Informatics",flag:"🇩🇪",tags:["AI/ML","Excellence"],deadline:"Jan 31, 2026",url:"https://www.tum.de/en/"},
+  {name:"LMU Munich — Data Science",flag:"🇩🇪",tags:["Statistics","ML"],deadline:"Feb 28, 2026",url:"https://www.lmu.de/en/"},
+  {name:"KIT — Cybersecurity",flag:"🇩🇪",tags:["Security","Networks"],deadline:"Rolling",url:"https://www.kit.edu/english/"},
+  {name:"Heidelberg University — ML",flag:"🇩🇪",tags:["Machine Learning"],deadline:"Mar 1, 2026",url:"https://www.uni-heidelberg.de/en/"},
+  {name:"University of Zurich — CS",flag:"🇨🇭",tags:["Computer Science"],deadline:"Rolling",url:"https://www.ifi.uzh.ch/en.html"},
   {name:"TU Berlin — Data Engineering",flag:"🇩🇪",tags:["Data Eng","Smart Systems"],deadline:"Apr 30, 2026",url:"https://www.tu.berlin/en/"},
-  {name:"TU Delft — Cyber Security",flag:"🇳🇱",tags:["Cybersecurity","AI Safety"],deadline:"Jan 15, 2026",url:"https://www.tudelft.nl/en/eemcs/research/groups/cyber-security"},
-  {name:"KTH Royal Institute — ML",flag:"🇸🇪",tags:["Machine Learning","Robotics"],deadline:"Feb 15, 2026",url:"https://www.kth.se/en/studies/phd"},
+  {name:"TU Delft — Cyber Security",flag:"🇳🇱",tags:["Cybersecurity","AI Safety"],deadline:"Jan 15, 2026",url:"https://www.tudelft.nl/"},
+  {name:"KTH Royal Institute — ML",flag:"🇸🇪",tags:["Machine Learning"],deadline:"Feb 15, 2026",url:"https://www.kth.se/en/"},
 ];
 
-const JOB_POSTINGS = [
-  {name:"SAP — Data Scientist (AI)",flag:"🇩🇪",tags:["Python","ML","Remote OK"],deadline:"Ongoing",url:"https://jobs.sap.com"},
+const JOB_POSTS = [
+  {name:"SAP — Data Scientist",flag:"🇩🇪",tags:["Python","ML","Remote OK"],deadline:"Ongoing",url:"https://jobs.sap.com"},
   {name:"Google Zurich — Research Scientist",flag:"🇨🇭",tags:["NLP","ML Research"],deadline:"Rolling",url:"https://careers.google.com"},
-  {name:"Siemens AG — Cybersecurity Eng.",flag:"🇩🇪",tags:["Security","Munich"],deadline:"Ongoing",url:"https://jobs.siemens.com"},
-  {name:"Swiss Re — Data Science Lead",flag:"🇨🇭",tags:["Fintech","Analytics"],deadline:"Rolling",url:"https://careers.swissre.com"},
-  {name:"Bosch — AI Research Engineer",flag:"🇩🇪",tags:["Embedded AI","Stuttgart"],deadline:"Ongoing",url:"https://jobs.bosch.com"},
+  {name:"Siemens — Cybersecurity Engineer",flag:"🇩🇪",tags:["Security","Munich"],deadline:"Ongoing",url:"https://jobs.siemens.com"},
+  {name:"Swiss Re — Data Science Lead",flag:"🇨🇭",tags:["Finance","Analytics"],deadline:"Rolling",url:"https://careers.swissre.com"},
+  {name:"Bosch — AI Research Engineer",flag:"🇩🇪",tags:["Embedded AI"],deadline:"Ongoing",url:"https://jobs.bosch.com"},
   {name:"CERN — Data Engineer",flag:"🇨🇭",tags:["Big Data","Scientific"],deadline:"Rolling",url:"https://careers.cern.ch"},
-  {name:"Fraunhofer — Security Researcher",flag:"🇩🇪",tags:["Research","Applied Security"],deadline:"Ongoing",url:"https://www.fraunhofer.de/en/jobs.html"},
-  {name:"ABB — Data Science Specialist",flag:"🇨🇭",tags:["Industrial AI","Zurich"],deadline:"Ongoing",url:"https://careers.abb.com"},
+  {name:"Fraunhofer — Security Researcher",flag:"🇩🇪",tags:["Research","Security"],deadline:"Ongoing",url:"https://www.fraunhofer.de/en/jobs.html"},
+  {name:"ABB — Data Science Specialist",flag:"🇨🇭",tags:["Industrial AI"],deadline:"Ongoing",url:"https://careers.abb.com"},
 ];
 
 const JOB_PORTALS = [
   {icon:"🔬",name:"Academics.com",desc:"European academic jobs",url:"https://www.academics.com"},
-  {icon:"🌐",name:"Euraxess",desc:"EU researcher mobility",url:"https://euraxess.ec.europa.eu/"},
+  {icon:"🌐",name:"Euraxess",desc:"EU researcher portal",url:"https://euraxess.ec.europa.eu/"},
   {icon:"🇩🇪",name:"Make it in Germany",desc:"Germany work portal",url:"https://www.make-it-in-germany.com"},
-  {icon:"💼",name:"LinkedIn Germany",desc:"Tech jobs in DE/CH",url:"https://www.linkedin.com/jobs/data-scientist-jobs-germany/"},
-  {icon:"🏢",name:"Indeed Germany",desc:"All sectors, Germany",url:"https://de.indeed.com/jobs?q=data+scientist"},
-  {icon:"🎓",name:"DAAD Job Portal",desc:"Academic exchange jobs",url:"https://www.daad.de/en/study-and-research-in-germany/"},
-  {icon:"🔐",name:"ENISA Careers",desc:"EU Cybersecurity Agency",url:"https://www.enisa.europa.eu/about-enisa/jobs"},
+  {icon:"💼",name:"LinkedIn DE/CH",desc:"Tech jobs in Germany & Swiss",url:"https://www.linkedin.com/jobs/data-scientist-jobs-germany/"},
+  {icon:"🏢",name:"Indeed Germany",desc:"All job sectors, Germany",url:"https://de.indeed.com/jobs?q=data+scientist"},
   {icon:"📊",name:"Swiss Job Radar",desc:"Switzerland tech roles",url:"https://www.jobs.ch/en/vacancies/?term=data+scientist"},
+  {icon:"🔐",name:"ENISA Careers",desc:"EU Cybersecurity Agency",url:"https://www.enisa.europa.eu/about-enisa/jobs"},
   {icon:"🧪",name:"Helmholtz Jobs",desc:"German research centers",url:"https://www.helmholtz.de/en/career/"},
+  {icon:"🎓",name:"DAAD Job Portal",desc:"German academic exchange",url:"https://www.daad.de/en/"},
   {icon:"🌍",name:"ResearchGate Jobs",desc:"Global research positions",url:"https://www.researchgate.net/jobs"},
 ];
 
 const RESOURCES = [
-  {icon:"🎓",name:"DAAD Scholarships",desc:"Germany academic grants",url:"https://www.daad.de/en/"},
+  {icon:"🎓",name:"DAAD Scholarships",desc:"German academic grants",url:"https://www.daad.de/en/"},
   {icon:"🔬",name:"Swiss NSF (SNF)",desc:"Swiss research funding",url:"https://www.snf.ch/en"},
-  {icon:"🇪🇺",name:"Marie Curie Actions",desc:"EU fellowships",url:"https://marie-sklodowska-curie-actions.ec.europa.eu/"},
-  {icon:"📡",name:"Euraxess Network",desc:"Researcher mobility EU",url:"https://euraxess.ec.europa.eu/"},
-  {icon:"📊",name:"Kaggle",desc:"Data science competitions",url:"https://www.kaggle.com"},
-  {icon:"🏛️",name:"Max Planck Society",desc:"German elite research",url:"https://www.mpg.de/en/career"},
+  {icon:"🇪🇺",name:"Marie Curie Actions",desc:"EU fellowships, all fields",url:"https://marie-sklodowska-curie-actions.ec.europa.eu/"},
+  {icon:"🏛️",name:"Max Planck Society",desc:"Elite German research",url:"https://www.mpg.de/en/career"},
+  {icon:"📡",name:"Euraxess",desc:"EU researcher mobility",url:"https://euraxess.ec.europa.eu/"},
+  {icon:"📊",name:"Kaggle",desc:"Data science practice",url:"https://www.kaggle.com"},
 ];
 
-const QUESTS = [
-  {cat:"📜 DOCUMENTS",items:["Prepare Statement of Purpose (SOP)","Update CV / academic resume","Gather 3 letters of recommendation","Obtain official transcripts (translated)","Certified translations for Germany/Switzerland","Passport valid 5+ years"]},
-  {cat:"🎓 ACADEMIC PREP",items:["Identify target research groups","Cold email potential supervisors","Research DAAD / SNF funding","Prepare research proposal draft","Language test: German B2 or English C1","GRE/GMAT if required by program"]},
-  {cat:"🛡️ CYBERSECURITY",items:["CTF competitions (3+ platforms)","Security certifications (CEH / OSCP)","GitHub security projects portfolio","Network with EU security researchers"]},
-  {cat:"📊 DATA SCIENCE",items:["Kaggle top 10% competition","Published or in-progress paper","Open source ML project on GitHub","3 end-to-end portfolio projects"]},
-  {cat:"🌍 LOGISTICS",items:["Research Germany / Switzerland visa","Open blocked account (Germany)","Health insurance research","Housing in target city"]}
+const CHECKLIST = [
+  {cat:"📝 Documents to Prepare", items:[
+    "Write my Statement of Purpose (SOP)",
+    "Update my CV",
+    "Get 3 recommendation letters",
+    "Get my university transcripts",
+    "Translate documents (if needed)",
+    "Renew passport (valid for 5+ years)"
+  ]},
+  {cat:"🎓 Academic Steps", items:[
+    "Find research groups I am interested in",
+    "Email potential supervisors",
+    "Look for DAAD / SNF scholarships",
+    "Write a short research proposal",
+    "Take English test (IELTS / TOEFL) if needed",
+    "Take German test (B2) if needed"
+  ]},
+  {cat:"🛡️ Cybersecurity Skills", items:[
+    "Practice on CTF platforms (Hack The Box etc.)",
+    "Get a security certificate (CEH / OSCP)",
+    "Build a security project on GitHub"
+  ]},
+  {cat:"📊 Data Science Skills", items:[
+    "Join a Kaggle competition",
+    "Work on a research paper",
+    "Build 3 data projects on GitHub"
+  ]},
+  {cat:"🌍 Practical Steps", items:[
+    "Learn about Germany / Switzerland visa",
+    "Open a blocked account (for Germany)",
+    "Research health insurance options",
+    "Look for accommodation in target city"
+  ]}
 ];
 
-const FORCE_RANKS = [
-  {min:0,title:"Youngling — Begin your quest"},
-  {min:10,title:"Initiate — The Force awakens"},
-  {min:25,title:"Padawan — Training begins"},
-  {min:40,title:"Jedi Knight — Half the battle won"},
-  {min:60,title:"Jedi Master — Excellence in sight"},
-  {min:75,title:"Council Member — Near the pinnacle"},
-  {min:90,title:"Grand Master — The Force is strong"},
-  {min:100,title:"Chosen One — Mission accomplished"}
+const RANKS = [
+  {min:0, label:"Just getting started"},
+  {min:10, label:"Taking first steps"},
+  {min:25, label:"Building momentum"},
+  {min:40, label:"Halfway there"},
+  {min:60, label:"Almost ready to apply"},
+  {min:75, label:"Serious candidate"},
+  {min:90, label:"Final stretch"},
+  {min:100, label:"Ready to conquer Europe!"}
 ];
 
-// ══════════════════════════════════
+// ════════════════════════════════════
 // STATE
-// ══════════════════════════════════
-const S = { quests:{}, apps:[], deadlines:[], profile:{}, newsFilter:'all', newsSearch:'', newsData:[], uTab:'phd', editId:null };
+// ════════════════════════════════════
+const S = { checks:{}, apps:[], deadlines:[], me:{}, filter:'all', search:'', news:[], tab:'phd', editId:null };
 
-// ══════════════════════════════════
-// INIT
-// ══════════════════════════════════
-document.addEventListener('DOMContentLoaded',()=>{
-  setDate();
-  load();
-  renderQuests();
+// ════════════════════════════════════
+// BOOT
+// ════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+  loadState();
+  renderChecklist();
   renderApps();
   renderUniList('phd');
   renderPortals();
   renderTimeline();
   renderResources();
-  updateForce();
-  // Modal overlay close
-  document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-  // Name blur save
-  document.getElementById('user-name').addEventListener('blur',saveProfile);
-  // Fetch news after short delay
-  setTimeout(fetchNews, 900);
+  updateProgress();
+  document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+  document.getElementById('my-name').addEventListener('blur', saveMe);
+  setTimeout(loadNews, 700);
 });
 
-function setDate(){
-  const d=new Date();
-  document.getElementById('topbar-date').textContent = d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+// ════════════════════════════════════
+// PERSIST
+// ════════════════════════════════════
+function loadState() {
+  try {
+    const raw = localStorage.getItem('phd_journey_v1');
+    if (!raw) return;
+    const sv = JSON.parse(raw);
+    S.checks   = sv.checks   || {};
+    S.apps     = sv.apps     || [];
+    S.deadlines= sv.deadlines|| [];
+    S.me       = sv.me       || {};
+    if (S.me.name)    { document.getElementById('my-name').textContent = S.me.name; updateAva(S.me.name); }
+    if (S.me.field)   document.getElementById('sel-field').value   = S.me.field;
+    if (S.me.country) document.getElementById('sel-country').value = S.me.country;
+    if (S.me.year)    document.getElementById('sel-year').value    = S.me.year;
+  } catch(e) {}
 }
 
-// ── PERSIST ──
-function load(){
-  try{
-    const raw=localStorage.getItem('phd_gal_v3');
-    if(raw){
-      const sv=JSON.parse(raw);
-      S.quests=sv.quests||{};
-      S.apps=sv.apps||[];
-      S.deadlines=sv.deadlines||[];
-      S.profile=sv.profile||{};
-      if(S.profile.name) document.getElementById('user-name').textContent=S.profile.name;
-      if(S.profile.spec) document.getElementById('spec-select').value=S.profile.spec;
-      if(S.profile.target) document.getElementById('target-select').value=S.profile.target;
-      if(S.profile.year) document.getElementById('year-select').value=S.profile.year;
-      updateAvatar(S.profile.name||'Padawan Seeker');
-    }
-  }catch(e){}
-}
-function save(){localStorage.setItem('phd_gal_v3',JSON.stringify({quests:S.quests,apps:S.apps,deadlines:S.deadlines,profile:S.profile}));}
-
-function saveProfile(){
-  const name=document.getElementById('user-name').textContent.trim()||'Padawan Seeker';
-  S.profile={name,spec:document.getElementById('spec-select').value,target:document.getElementById('target-select').value,year:document.getElementById('year-select').value,customQuests:S.profile.customQuests||[]};
-  updateAvatar(name); save();
-}
-function updateAvatar(name){
-  const parts=(name||'P S').trim().split(' ');
-  const init=parts.length>=2?(parts[0][0]+parts[parts.length-1][0]).toUpperCase():name.slice(0,2).toUpperCase();
-  document.getElementById('avatar-initials').textContent=init;
+function persist() {
+  localStorage.setItem('phd_journey_v1', JSON.stringify({ checks:S.checks, apps:S.apps, deadlines:S.deadlines, me:S.me }));
 }
 
-// ── QUESTS ──
-function renderQuests(){
-  const el=document.getElementById('quest-list'); el.innerHTML='';
-  QUESTS.forEach((cat,ci)=>{
-    const wrap=document.createElement('div');
-    const lbl=document.createElement('div'); lbl.className='q-cat-label'; lbl.textContent=cat.cat; wrap.appendChild(lbl);
-    cat.items.forEach((item,ii)=>{
-      const id=`c${ci}_i${ii}`, done=!!S.quests[id];
-      const row=document.createElement('div'); row.className='q-item'+(done?' done':''); row.onclick=()=>toggleQuest(id,row);
-      row.innerHTML=`<div class="q-box">${done?'✓':''}</div><div class="q-text">${item}</div>`;
+function saveMe() {
+  const name = document.getElementById('my-name').textContent.trim() || '';
+  S.me = { ...S.me, name, field: document.getElementById('sel-field').value, country: document.getElementById('sel-country').value, year: document.getElementById('sel-year').value };
+  updateAva(name);
+  persist();
+}
+
+function updateAva(name) {
+  const parts = (name || '?').trim().split(' ');
+  const init  = parts.length >= 2 ? (parts[0][0] + parts[parts.length-1][0]).toUpperCase() : (name[0] || '?').toUpperCase();
+  document.getElementById('ava-initials').textContent = init;
+}
+
+// ════════════════════════════════════
+// CHECKLIST
+// ════════════════════════════════════
+function renderChecklist() {
+  const el = document.getElementById('checklist'); el.innerHTML = '';
+  CHECKLIST.forEach((cat, ci) => {
+    const wrap = document.createElement('div');
+    const lbl = document.createElement('div'); lbl.className = 'cat-label'; lbl.textContent = cat.cat; wrap.appendChild(lbl);
+    cat.items.forEach((item, ii) => {
+      const id = `c${ci}i${ii}`, done = !!S.checks[id];
+      const row = document.createElement('div'); row.className = 'check-item' + (done ? ' done' : ''); row.onclick = () => toggleCheck(id, row);
+      row.innerHTML = `<div class="check-box">${done ? '✓' : ''}</div><div class="check-text">${item}</div>`;
       wrap.appendChild(row);
     });
     el.appendChild(wrap);
   });
-  // custom quests
-  const customs=(S.profile.customQuests||[]);
-  if(customs.length>0){
-    const wrap=document.createElement('div');
-    const lbl=document.createElement('div'); lbl.className='q-cat-label'; lbl.textContent='⚡ CUSTOM MISSIONS'; wrap.appendChild(lbl);
-    customs.forEach((item,idx)=>{
-      const id=`custom_${idx}`, done=!!S.quests[id];
-      const row=document.createElement('div'); row.className='q-item'+(done?' done':''); row.onclick=()=>toggleQuest(id,row);
-      row.innerHTML=`<div class="q-box">${done?'✓':''}</div><div class="q-text">${item}</div>`;
+  // My custom tasks
+  const customs = S.me.tasks || [];
+  if (customs.length) {
+    const wrap = document.createElement('div');
+    const lbl = document.createElement('div'); lbl.className = 'cat-label'; lbl.textContent = '⚡ MY OWN TASKS'; wrap.appendChild(lbl);
+    customs.forEach((item, idx) => {
+      const id = `my_${idx}`, done = !!S.checks[id];
+      const row = document.createElement('div'); row.className = 'check-item' + (done ? ' done' : ''); row.onclick = () => toggleCheck(id, row);
+      row.innerHTML = `<div class="check-box">${done ? '✓' : ''}</div><div class="check-text">${esc(item)}</div>`;
       wrap.appendChild(row);
     });
     el.appendChild(wrap);
   }
 }
-function toggleQuest(id,row){
-  S.quests[id]=!S.quests[id];
-  row.classList.toggle('done',S.quests[id]);
-  row.querySelector('.q-box').textContent=S.quests[id]?'✓':'';
-  save(); updateForce();
-}
-function addCustomQuest(){
-  const lbl=prompt('Mission name:'); if(!lbl||!lbl.trim()) return;
-  if(!S.profile.customQuests) S.profile.customQuests=[];
-  S.profile.customQuests.push(lbl.trim()); save(); renderQuests(); toast('Custom mission added');
+
+function toggleCheck(id, row) {
+  S.checks[id] = !S.checks[id];
+  row.classList.toggle('done', S.checks[id]);
+  row.querySelector('.check-box').textContent = S.checks[id] ? '✓' : '';
+  persist(); updateProgress();
 }
 
-// ── FORCE METER ──
-function updateForce(){
-  let total=0,done=0;
-  QUESTS.forEach((cat,ci)=>cat.items.forEach((_,ii)=>{total++;if(S.quests[`c${ci}_i${ii}`])done++;}));
-  (S.profile.customQuests||[]).forEach((_,i)=>{total++;if(S.quests[`custom_${i}`])done++;});
-  const pct=total>0?Math.round(done/total*100):0;
-  document.getElementById('force-fill').style.width=pct+'%';
-  document.getElementById('force-pct').textContent=pct+'%';
-  const rank=[...FORCE_RANKS].reverse().find(r=>pct>=r.min);
-  document.getElementById('force-rank').textContent=rank?rank.title:'Begin your quest';
+function addMyTask() {
+  const label = prompt('What task do you want to add?');
+  if (!label || !label.trim()) return;
+  if (!S.me.tasks) S.me.tasks = [];
+  S.me.tasks.push(label.trim());
+  persist(); renderChecklist(); toast('Task added!');
 }
 
-// ── NEWS ──
-async function fetchNews(){
-  const btn=document.getElementById('scan-btn'); btn.classList.add('spinning');
-  const feed=document.getElementById('news-feed');
-  feed.innerHTML='<div class="n-loading"><div class="n-spinner"></div><p>Scanning galaxy...</p></div>';
-  try{
-    const spec=document.getElementById('spec-select')?.value||'ds';
-    const specLabel=spec==='ds'?'Data Science':spec==='cyber'?'Cybersecurity':'Data Science and Cybersecurity';
-    const today=new Date().toISOString().split('T')[0];
-    const prompt=`You are a daily intelligence briefing system for PhD applicants and job seekers targeting European universities and industry.
+// ════════════════════════════════════
+// PROGRESS
+// ════════════════════════════════════
+function updateProgress() {
+  let total = 0, done = 0;
+  CHECKLIST.forEach((cat, ci) => cat.items.forEach((_, ii) => { total++; if (S.checks[`c${ci}i${ii}`]) done++; }));
+  (S.me.tasks || []).forEach((_, i) => { total++; if (S.checks[`my_${i}`]) done++; });
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent  = pct + '%';
+  const rank = [...RANKS].reverse().find(r => pct >= r.min);
+  document.getElementById('prog-rank').textContent  = rank ? rank.label : 'Just getting started';
+}
 
-Today is ${today}. Generate exactly 12 fresh, relevant news items covering:
-- New PhD program openings or deadlines at ETH Zurich, EPFL, TU Munich, LMU Munich, Heidelberg, KIT, TU Berlin, Max Planck Institutes
-- Data Science and ${specLabel} job openings in Germany and Switzerland (SAP, Siemens, Bosch, Google Zurich, CERN, ABB, Swiss Re)
-- Scholarships: DAAD, SNF, Marie Skłodowska-Curie, Helmholtz, Fraunhofer
-- Visa updates for researchers in Germany and Switzerland
-- European AI/cybersecurity conferences and networking events
-- Research funding news from DFG, Horizon Europe, ERC
+// ════════════════════════════════════
+// NEWS (Claude API)
+// ════════════════════════════════════
+async function loadNews() {
+  const btn = document.getElementById('scan-btn'); btn.classList.add('spin');
+  document.getElementById('news-feed').innerHTML = '<div class="feed-empty"><div class="feed-spinner"></div>Getting today\'s news...</div>';
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const field = document.getElementById('sel-field')?.value || 'ds';
+    const fieldLabel = field === 'ds' ? 'Data Science' : field === 'cyber' ? 'Cybersecurity' : 'Data Science and Cybersecurity';
 
-Return ONLY a raw JSON array (no markdown fences, no explanation):
-[{"title":"...","summary":"2-3 sentences with specific details, deadlines, or amounts","category":"phd|jobs|de|ch|eu","date":"${today.slice(0,7)}-XX","url":"https://real-institution-url.com","source":"Institution Name"}]
+    const prompt = `You are a daily briefing assistant for someone searching for a PhD in Europe in ${fieldLabel}.
 
-Use real institution URLs. Vary categories. Make items actionable and specific.`;
+Today is ${today}. Generate exactly 12 news items that are relevant and helpful. Cover:
+- New PhD openings or upcoming deadlines at ETH Zurich, EPFL, TU Munich, LMU Munich, KIT, Heidelberg, Max Planck
+- Data science and cybersecurity jobs in Germany and Switzerland
+- Scholarships like DAAD, SNF, Marie Curie, Helmholtz
+- Visa or immigration updates for researchers in Germany or Switzerland
+- Useful events, conferences, or networking opportunities in Europe
 
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+Write in simple, clear English. Each summary should be 2 sentences max.
+
+Return ONLY a JSON array, no markdown, no extra text:
+[{"title":"...","summary":"...","category":"phd|jobs|de|ch|eu","date":"${today}","url":"https://...","source":"..."}]`;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
     });
-    const data=await res.json();
-    const txt=data.content?.find(c=>c.type==='text')?.text||'';
-    const match=txt.match(/\[[\s\S]*\]/);
-    if(!match) throw new Error('no json');
-    S.newsData=JSON.parse(match[0]);
-    renderNews(); toast('Intelligence feed updated — '+S.newsData.length+' transmissions');
-  }catch(e){
-    S.newsData=FALLBACK_NEWS; renderNews(); toast('Static archive loaded');
+    const data = await res.json();
+    const txt  = data.content?.find(c => c.type === 'text')?.text || '';
+    const match = txt.match(/\[[\s\S]*\]/);
+    if (!match) throw new Error('no json');
+    S.news = JSON.parse(match[0]);
+    renderNews(); toast("News updated — " + S.news.length + " items");
+  } catch (e) {
+    S.news = STATIC_NEWS; renderNews(); toast("Showing saved news");
   }
-  btn.classList.remove('spinning');
+  btn.classList.remove('spin');
 }
 
-function setFilter(f,btn){
-  S.newsFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+function setFilter(f, btn) {
+  S.filter = f;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on'); renderNews();
 }
-function searchNews(q){ S.newsSearch=q; renderNews(); }
 
-function renderNews(){
-  const feed=document.getElementById('news-feed'); feed.innerHTML='';
-  let items=S.newsData;
-  if(S.newsFilter!=='all') items=items.filter(i=>i.category===S.newsFilter);
-  if(S.newsSearch){const q=S.newsSearch.toLowerCase();items=items.filter(i=>(i.title+i.summary+(i.source||'')).toLowerCase().includes(q));}
-  if(!items.length){feed.innerHTML='<div class="n-loading"><p>No transmissions match filters</p></div>';return;}
-  const BADGES={phd:'<span class="n-badge b-phd">PHD</span>',jobs:'<span class="n-badge b-jobs">CAREER</span>',de:'<span class="n-badge b-de">GERMANY</span>',ch:'<span class="n-badge b-ch">SWISS</span>',eu:'<span class="n-badge b-eu">EU</span>'};
-  items.forEach(item=>{
-    const d=document.createElement('div');
-    d.className=`n-card c-${item.category||'eu'}`;
-    const badge=BADGES[item.category]||BADGES.eu;
-    const dateStr=item.date?new Date(item.date.replace(/-XX$/,'-01')).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):'';
-    d.innerHTML=`
-      <div class="n-meta">${badge}${item.source?`<span class="n-src">${esc(item.source)}</span>`:''}${dateStr?`<span class="n-date">${dateStr}</span>`:''}</div>
+function searchNews(q) { S.search = q; renderNews(); }
+
+function renderNews() {
+  const feed = document.getElementById('news-feed'); feed.innerHTML = '';
+  let items = S.news;
+  if (S.filter !== 'all') items = items.filter(i => i.category === S.filter);
+  if (S.search) { const q = S.search.toLowerCase(); items = items.filter(i => (i.title + i.summary + (i.source||'')).toLowerCase().includes(q)); }
+  if (!items.length) { feed.innerHTML = '<div class="feed-empty">No news matches your search</div>'; return; }
+
+  const BADGES = {
+    phd:  '<span class="nbadge b-phd">PHD</span>',
+    jobs: '<span class="nbadge b-jobs">JOB</span>',
+    de:   '<span class="nbadge b-de">GERMANY</span>',
+    ch:   '<span class="nbadge b-ch">SWISS</span>',
+    eu:   '<span class="nbadge b-eu">EU</span>',
+  };
+
+  items.forEach(item => {
+    const d = document.createElement('div');
+    d.className = `n-card c-${item.category || 'eu'}`;
+    const badge = BADGES[item.category] || BADGES.eu;
+    const dateStr = item.date ? new Date(item.date).toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : '';
+    d.innerHTML = `
+      <div class="n-meta">${badge}${item.source ? `<span class="n-src">${esc(item.source)}</span>` : ''}${dateStr ? `<span class="n-date">${dateStr}</span>` : ''}</div>
       <div class="n-title">${esc(item.title)}</div>
       <div class="n-summary">${esc(item.summary)}</div>
-      ${item.url?`<a class="n-link" href="${item.url}" target="_blank">→ Read more</a>`:''}`;
+      ${item.url ? `<a class="n-link" href="${item.url}" target="_blank">→ Read more</a>` : ''}`;
     feed.appendChild(d);
   });
 }
 
-// ── APPLICATIONS ──
-function openAddApp(){ document.getElementById('a-name').value=''; document.getElementById('a-deadline').value=''; document.getElementById('a-notes').value=''; openModal('add-app-modal'); }
-function saveApp(){
-  const name=document.getElementById('a-name').value.trim(); if(!name){toast('Enter institution name');return;}
-  S.apps.unshift({id:Date.now().toString(),name,type:document.getElementById('a-type').value,country:document.getElementById('a-country').value,deadline:document.getElementById('a-deadline').value,status:document.getElementById('a-status').value,notes:document.getElementById('a-notes').value});
-  save(); renderApps(); closeModal('add-app-modal'); toast('Mission dossier created');
+// ════════════════════════════════════
+// APPLICATIONS
+// ════════════════════════════════════
+function openAddApp() {
+  ['a-name','a-notes','a-url'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('a-deadline').value = '';
+  openModal('modal-add-app');
 }
-function openEditApp(id){
-  const app=S.apps.find(a=>a.id===id); if(!app) return;
-  S.editId=id; document.getElementById('e-id').value=id; document.getElementById('e-status').value=app.status; document.getElementById('e-notes').value=app.notes||''; openModal('edit-app-modal');
+
+function saveApp() {
+  const name = document.getElementById('a-name').value.trim();
+  if (!name) { toast('Please enter a name'); return; }
+  S.apps.unshift({
+    id: Date.now().toString(), name,
+    type:     document.getElementById('a-type').value,
+    country:  document.getElementById('a-country').value,
+    deadline: document.getElementById('a-deadline').value,
+    status:   document.getElementById('a-status').value,
+    notes:    document.getElementById('a-notes').value,
+    url:      document.getElementById('a-url').value,
+  });
+  persist(); renderApps(); closeModal('modal-add-app'); toast('Application saved!');
 }
-function updateApp(){
-  const app=S.apps.find(a=>a.id===S.editId); if(!app) return;
-  app.status=document.getElementById('e-status').value; app.notes=document.getElementById('e-notes').value;
-  save(); renderApps(); closeModal('edit-app-modal'); toast('Mission updated');
+
+function openEditApp(id) {
+  const app = S.apps.find(a => a.id === id); if (!app) return;
+  S.editId = id;
+  document.getElementById('e-id').value     = id;
+  document.getElementById('e-status').value = app.status;
+  document.getElementById('e-notes').value  = app.notes || '';
+  openModal('modal-edit-app');
 }
-function deleteApp(){
-  if(!confirm('Delete this dossier?')) return;
-  S.apps=S.apps.filter(a=>a.id!==S.editId); save(); renderApps(); closeModal('edit-app-modal'); toast('Mission removed');
+
+function updateApp() {
+  const app = S.apps.find(a => a.id === S.editId); if (!app) return;
+  app.status = document.getElementById('e-status').value;
+  app.notes  = document.getElementById('e-notes').value;
+  persist(); renderApps(); closeModal('modal-edit-app'); toast('Updated!');
 }
-function renderApps(){
-  const list=document.getElementById('app-list'),empty=document.getElementById('app-empty');
-  list.innerHTML='';
-  if(!S.apps.length){empty.style.display='block';return;} empty.style.display='none';
-  const FLAGS={de:'🇩🇪',ch:'🇨🇭',nl:'🇳🇱',se:'🇸🇪',other:'🌍'};
-  S.apps.forEach(app=>{
-    const d=document.createElement('div'); d.className='a-card'; d.onclick=()=>openEditApp(app.id);
-    const days=app.deadline?Math.ceil((new Date(app.deadline)-new Date())/86400000):null;
-    const daysCls=days===null?'':(days<0?'d-past':days<=14?'d-soon':'d-ok');
-    const daysStr=days===null?'':(days<0?'Past':days+'d');
-    d.innerHTML=`<div class="a-dot s-${app.status}"></div><div class="a-info"><div class="a-name">${FLAGS[app.country]||'🌍'} ${esc(app.name)}</div><div class="a-sub">${app.type.toUpperCase()} · ${app.status.toUpperCase()}</div></div><div class="a-days ${daysCls}">${daysStr}</div>`;
+
+function deleteApp() {
+  if (!confirm('Remove this application?')) return;
+  S.apps = S.apps.filter(a => a.id !== S.editId);
+  persist(); renderApps(); closeModal('modal-edit-app'); toast('Removed');
+}
+
+function renderApps() {
+  const list = document.getElementById('app-list'), empty = document.getElementById('app-empty');
+  list.innerHTML = '';
+  if (!S.apps.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const FLAGS  = { de:'🇩🇪', ch:'🇨🇭', nl:'🇳🇱', se:'🇸🇪', other:'🌍' };
+  const SLABEL = { scouting:'Just looking', preparing:'Getting ready', submitted:'Applied', interview:'Interview', offer:'Offer!', rejected:'Not selected' };
+  S.apps.forEach(app => {
+    const d = document.createElement('div'); d.className = 'a-card'; d.onclick = () => openEditApp(app.id);
+    const days = app.deadline ? Math.ceil((new Date(app.deadline) - new Date()) / 86400000) : null;
+    const dcls = days === null ? 'd-ok' : days < 0 ? 'd-past' : days <= 14 ? 'd-soon' : 'd-ok';
+    const dtxt = days === null ? '' : days < 0 ? 'Past' : days + 'd left';
+    d.innerHTML = `
+      <div class="a-dot s-${app.status}"></div>
+      <div class="a-info">
+        <div class="a-name">${FLAGS[app.country]||'🌍'} ${esc(app.name)}</div>
+        <div class="a-sub">${app.type.toUpperCase()} · ${SLABEL[app.status]||app.status}</div>
+      </div>
+      <div class="a-days ${dcls}">${dtxt}</div>`;
     list.appendChild(d);
   });
 }
 
-// ── UNIVERSE MAP ──
-function switchTab(tab,btn){ S.uTab=tab; document.querySelectorAll('.u-tab').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); renderUniList(tab); }
-function renderUniList(tab){
-  const list=document.getElementById('u-list'); list.innerHTML='';
-  (tab==='phd'?PHD_PROGRAMS:JOB_POSTINGS).forEach(item=>{
-    const d=document.createElement('div'); d.className='u-card';
-    d.innerHTML=`<div class="u-head"><div class="u-name">${esc(item.name)}</div><div class="u-flag">${item.flag}</div></div><div class="u-tags">${item.tags.map(t=>`<span class="u-tag">${t}</span>`).join('')}</div><div class="u-dl">⊕ ${esc(item.deadline)}</div><a class="u-link" href="${item.url}" target="_blank">→ Visit program</a>`;
-    list.appendChild(d);
-  });
+// ════════════════════════════════════
+// UNIVERSITY LIST
+// ════════════════════════════════════
+function switchTab(tab, btn) {
+  S.tab = tab;
+  document.querySelectorAll('.utab').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on'); renderUniList(tab);
 }
 
-// ── JOB PORTALS ──
-function renderPortals(){
-  const el=document.getElementById('portals-grid'); el.innerHTML='';
-  JOB_PORTALS.forEach(p=>{
-    const a=document.createElement('a'); a.className='portal-card'; a.href=p.url; a.target='_blank';
-    a.innerHTML=`<span class="portal-icon">${p.icon}</span><div><div class="portal-name">${esc(p.name)}</div><div class="portal-desc">${esc(p.desc)}</div></div><span class="portal-arrow">→</span>`;
-    el.appendChild(a);
-  });
-}
-
-// ── TIMELINE ──
-function openAddDeadline(){ document.getElementById('dl-label').value=''; document.getElementById('dl-date').value=''; openModal('dl-modal'); }
-function saveDeadline(){
-  const lbl=document.getElementById('dl-label').value.trim(), dt=document.getElementById('dl-date').value;
-  if(!lbl||!dt){toast('Enter label and date');return;}
-  S.deadlines.push({id:Date.now().toString(),label:lbl,date:dt,type:document.getElementById('dl-type').value});
-  S.deadlines.sort((a,b)=>new Date(a.date)-new Date(b.date));
-  save(); renderTimeline(); closeModal('dl-modal'); toast('Deadline set');
-}
-function renderTimeline(){
-  const el=document.getElementById('tl-wrap'); el.innerHTML='';
-  const items=S.deadlines.length?S.deadlines:DEFAULT_DEADLINES;
-  items.forEach(item=>{
-    const days=Math.ceil((new Date(item.date)-new Date())/86400000);
-    const dcls=days<0?'td-past':days<=7?'td-urgent':days<=30?'td-warn':'td-ok';
-    const dtxt=days<0?'Past':days+'d';
-    const d=document.createElement('div'); d.className='tl-row';
-    d.innerHTML=`<div class="tl-dot td-${item.type}"></div><div class="tl-body"><div class="tl-label">${esc(item.label)}</div><div class="tl-date">${new Date(item.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div></div><div class="tl-days ${dcls}">${dtxt}</div>`;
+function renderUniList(tab) {
+  const el = document.getElementById('u-list'); el.innerHTML = '';
+  (tab === 'phd' ? PHD_PROGRAMS : JOB_POSTS).forEach(item => {
+    const d = document.createElement('div'); d.className = 'u-card';
+    d.innerHTML = `
+      <div class="u-head"><div class="u-name">${esc(item.name)}</div><div class="u-flag">${item.flag}</div></div>
+      <div class="u-tags">${item.tags.map(t=>`<span class="u-tag">${t}</span>`).join('')}</div>
+      <div class="u-dl">Deadline: ${esc(item.deadline)}</div>
+      <a class="u-link" href="${item.url}" target="_blank">→ Open website</a>`;
     el.appendChild(d);
   });
 }
-const DEFAULT_DEADLINES=[
-  {id:'d1',label:'ETH Zurich PhD',date:'2025-12-15',type:'phd'},
-  {id:'d2',label:'EPFL Application',date:'2026-01-15',type:'phd'},
-  {id:'d3',label:'DAAD Scholarship',date:'2025-10-31',type:'docs'},
-  {id:'d4',label:'TU Munich Deadline',date:'2026-01-31',type:'phd'},
-  {id:'d5',label:'LMU Munich',date:'2026-02-28',type:'phd'},
-];
 
-// ── RESOURCES ──
-function renderResources(){
-  const el=document.getElementById('res-list'); el.innerHTML='';
-  RESOURCES.forEach(r=>{
-    const a=document.createElement('a'); a.className='res-item'; a.href=r.url; a.target='_blank';
-    a.innerHTML=`<span class="res-icon">${r.icon}</span><div><div class="res-name">${esc(r.name)}</div><div class="res-desc">${esc(r.desc)}</div></div><span class="res-arr">→</span>`;
+// ════════════════════════════════════
+// JOB PORTALS
+// ════════════════════════════════════
+function renderPortals() {
+  const el = document.getElementById('portals'); el.innerHTML = '';
+  JOB_PORTALS.forEach(p => {
+    const a = document.createElement('a'); a.className = 'portal'; a.href = p.url; a.target = '_blank';
+    a.innerHTML = `<span class="portal-icon">${p.icon}</span><div><div class="portal-name">${esc(p.name)}</div><div class="portal-desc">${esc(p.desc)}</div></div><span class="portal-arr">→</span>`;
     el.appendChild(a);
   });
 }
 
-// ── MODAL / TOAST ──
-function openModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-function toast(msg){ const t=document.getElementById('toast'); t.textContent='✦ '+msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
-function esc(s){ return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):''; }
+// ════════════════════════════════════
+// DEADLINES
+// ════════════════════════════════════
+function openAddDeadline() {
+  document.getElementById('dl-label').value = '';
+  document.getElementById('dl-date').value  = '';
+  openModal('modal-deadline');
+}
 
-// ══════════════════════════════════
-// FALLBACK NEWS
-// ══════════════════════════════════
-const FALLBACK_NEWS=[
-  {title:"ETH Zurich Opens 2026 PhD Applications in Computational Data Science",summary:"ETH Zurich's CS department launched its 2026 PhD intake with new positions in ML, privacy-preserving AI, and large-scale data systems. Stipends start at CHF 50,000/year tax-free. Priority deadline December 15, 2025.",category:"ch",date:"2025-10-01",url:"https://inf.ethz.ch/doctorate.html",source:"ETH Zurich"},
-  {title:"DAAD 2026 Research Grants Now Accepting Applications",summary:"The German Academic Exchange Service opened its portal for 2026 research grants covering PhD-level STEM studies. Grants cover living costs, travel, and health insurance. Deadline October 31, 2025.",category:"phd",date:"2025-10-02",url:"https://www.daad.de/en/",source:"DAAD"},
-  {title:"TU Munich AI Research Cluster Recruiting PhD Students",summary:"TU Munich's excellence initiative cluster is accepting PhD applications in responsible AI, federated learning, and healthcare analytics. Rolling admissions with priority deadline January 31, 2026.",category:"de",date:"2025-10-03",url:"https://www.tum.de",source:"TU Munich"},
-  {title:"Google Zurich Expanding ML Research Team — Senior Scientists",summary:"Google's Zurich engineering hub is hiring ML researchers with PhD or equivalent experience, focusing on NLP, recommender systems, and AI safety. Competitive Swiss salaries with full relocation support.",category:"jobs",date:"2025-10-04",url:"https://careers.google.com",source:"Google"},
-  {title:"Marie Skłodowska-Curie Doctoral Networks 2026 Now Open",summary:"Horizon Europe's MSCA Doctoral Networks programme is accepting proposals for 2026 cohorts. Fellowships cover salary, research allowance, and travel for PhD candidates across all EU member states including Switzerland.",category:"eu",date:"2025-10-05",url:"https://marie-sklodowska-curie-actions.ec.europa.eu/",source:"European Commission"},
-  {title:"Germany Lowers EU Blue Card Salary Threshold for Data Scientists",summary:"The German government reduced the EU Blue Card minimum salary threshold for data scientists and cybersecurity professionals to €45,300 annually, easing access for international talent from non-EU countries.",category:"de",date:"2025-10-06",url:"https://www.make-it-in-germany.com",source:"BMBF"},
-  {title:"EPFL CyberSecurity PhD — New Cohort Accepting Applications",summary:"EPFL's IC School announced new PhD positions in cybersecurity with focus on network security, post-quantum cryptography, and AI-driven threat detection. Swiss doctoral stipend of CHF 48,000/year applies.",category:"ch",date:"2025-10-07",url:"https://www.epfl.ch/education/phd/",source:"EPFL"},
-  {title:"Fraunhofer Society Hiring 200+ Applied AI Researchers",summary:"Germany's Fraunhofer Society is recruiting applied researchers in AI, data analytics, and cybersecurity across Munich, Berlin, and Stuttgart. Positions bridge academic and industry research with TVöD salaries.",category:"jobs",date:"2025-10-08",url:"https://www.fraunhofer.de/en/jobs.html",source:"Fraunhofer"},
-  {title:"Helmholtz Association Opens 50 Structured PhD Positions",summary:"Germany's Helmholtz Association announced 50 new PhD positions in data-driven sciences across its centers in Berlin, Munich, and Hamburg. Fields include bioinformatics, climate AI, and physics data analysis.",category:"phd",date:"2025-10-09",url:"https://www.helmholtz.de/en/career/",source:"Helmholtz"},
-  {title:"KIT Cybersecurity Center Launches New PhD Track",summary:"Karlsruhe Institute of Technology (KIT) opened applications for its cybersecurity PhD track combining hardware security, cryptography, and software verification. Positions come with DFG project funding.",category:"de",date:"2025-10-10",url:"https://www.kit.edu/english/",source:"KIT"},
-  {title:"Swiss NSF ERC Starting Grants — Deadline February 2026",summary:"The Swiss National Science Foundation (SNF) is accepting applications for ERC Starting Grant equivalents for early-career researchers in Switzerland. Awards up to CHF 1.5M for 5-year projects.",category:"ch",date:"2025-10-11",url:"https://www.snf.ch/en",source:"SNF"},
-  {title:"Max Planck Institute for Intelligent Systems — PhD Openings",summary:"MPI for Intelligent Systems in Tübingen and Stuttgart has multiple PhD openings in machine learning, robotics, and probabilistic AI. Competitive stipends with full access to world-class research infrastructure.",category:"phd",date:"2025-10-12",url:"https://www.mpg.de/en/career",source:"Max Planck Society"},
+function saveDeadline() {
+  const label = document.getElementById('dl-label').value.trim();
+  const date  = document.getElementById('dl-date').value;
+  if (!label || !date) { toast('Please fill in both fields'); return; }
+  S.deadlines.push({ id: Date.now().toString(), label, date, type: document.getElementById('dl-type').value });
+  S.deadlines.sort((a, b) => new Date(a.date) - new Date(b.date));
+  persist(); renderTimeline(); closeModal('modal-deadline'); toast('Deadline added!');
+}
+
+function renderTimeline() {
+  const el = document.getElementById('tl-list'); el.innerHTML = '';
+  const items = S.deadlines.length ? S.deadlines : DEFAULT_DL;
+  if (!items.length) { el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--t3);font-family:var(--mono);font-size:11px">No deadlines yet</div>'; return; }
+  items.forEach(item => {
+    const days = Math.ceil((new Date(item.date) - new Date()) / 86400000);
+    const dcls = days < 0 ? 'td-past' : days <= 7 ? 'td-urgent' : days <= 30 ? 'td-warn' : 'td-ok';
+    const dtxt = days < 0 ? 'Past' : days === 0 ? 'Today!' : days + ' days';
+    const d = document.createElement('div'); d.className = 'tl-row';
+    d.innerHTML = `
+      <div class="tl-dot td-${item.type}"></div>
+      <div class="tl-body">
+        <div class="tl-label">${esc(item.label)}</div>
+        <div class="tl-date">${new Date(item.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+      </div>
+      <div class="tl-days ${dcls}">${dtxt}</div>`;
+    el.appendChild(d);
+  });
+}
+
+const DEFAULT_DL = [
+  {id:'d1',label:'ETH Zurich PhD',date:'2025-12-15',type:'phd'},
+  {id:'d2',label:'DAAD Scholarship',date:'2025-10-31',type:'docs'},
+  {id:'d3',label:'EPFL Application',date:'2026-01-15',type:'phd'},
+  {id:'d4',label:'TU Munich Deadline',date:'2026-01-31',type:'phd'},
+];
+
+// ════════════════════════════════════
+// RESOURCES
+// ════════════════════════════════════
+function renderResources() {
+  const el = document.getElementById('res-list'); el.innerHTML = '';
+  RESOURCES.forEach(r => {
+    const a = document.createElement('a'); a.className = 'res-item'; a.href = r.url; a.target = '_blank';
+    a.innerHTML = `<span class="res-icon">${r.icon}</span><div><div class="res-name">${esc(r.name)}</div><div class="res-desc">${esc(r.desc)}</div></div><span class="res-arr">→</span>`;
+    el.appendChild(a);
+  });
+}
+
+// ════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+function esc(s) { return s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+
+// ════════════════════════════════════
+// STATIC NEWS FALLBACK
+// ════════════════════════════════════
+const STATIC_NEWS = [
+  {title:"ETH Zurich Opens 2026 PhD Applications in Data Science",summary:"New PhD positions open at ETH Zurich in machine learning, privacy AI, and data systems. Stipend is CHF 50,000/year. Deadline: December 15, 2025.",category:"ch",date:"2025-10-01",url:"https://inf.ethz.ch/doctorate.html",source:"ETH Zurich"},
+  {title:"DAAD 2026 Research Scholarships Now Open",summary:"Germany's DAAD scholarship is open for PhD-level researchers. Covers living costs, travel, and health insurance. Apply before October 31, 2025.",category:"phd",date:"2025-10-01",url:"https://www.daad.de/en/",source:"DAAD"},
+  {title:"TU Munich AI Cluster Recruiting PhD Students",summary:"TU Munich is accepting PhD applications in AI, federated learning, and healthcare data. Rolling admissions, priority deadline January 31, 2026.",category:"de",date:"2025-10-02",url:"https://www.tum.de",source:"TU Munich"},
+  {title:"Google Zurich Hiring ML Research Scientists",summary:"Google Zurich is looking for ML researchers with PhD background in NLP, recommender systems, and AI safety. Full relocation support provided.",category:"jobs",date:"2025-10-02",url:"https://careers.google.com",source:"Google"},
+  {title:"Marie Curie Doctoral Fellowships 2026 — Apply Now",summary:"The EU's MSCA Doctoral Networks programme is open. Fellowships cover salary and research costs across all EU countries including Switzerland.",category:"eu",date:"2025-10-03",url:"https://marie-sklodowska-curie-actions.ec.europa.eu/",source:"European Commission"},
+  {title:"Germany Makes EU Blue Card Easier for Data Scientists",summary:"Germany lowered the salary threshold for EU Blue Cards for data scientists to €45,300/year, making it easier to work there after graduation.",category:"de",date:"2025-10-03",url:"https://www.make-it-in-germany.com",source:"Make it in Germany"},
+  {title:"EPFL Cybersecurity PhD — New Positions Available",summary:"EPFL opened PhD spots in network security, cryptography, and AI-driven threat detection. Swiss doctoral stipend of CHF 48,000/year.",category:"ch",date:"2025-10-04",url:"https://www.epfl.ch/education/phd/",source:"EPFL"},
+  {title:"Fraunhofer Society Hiring 200 AI Researchers in Germany",summary:"Germany's Fraunhofer is recruiting applied AI, data, and security researchers across Munich, Berlin, and Stuttgart. Academic and industry mix.",category:"jobs",date:"2025-10-04",url:"https://www.fraunhofer.de/en/jobs.html",source:"Fraunhofer"},
+  {title:"Helmholtz Opens 50 PhD Positions in Data-Driven Science",summary:"Germany's Helmholtz research centers announced 50 new PhD positions in bioinformatics, climate AI, and scientific data analysis.",category:"phd",date:"2025-10-05",url:"https://www.helmholtz.de/en/career/",source:"Helmholtz"},
+  {title:"KIT Launches New Cybersecurity PhD Track",summary:"KIT opened applications for a cybersecurity PhD combining hardware security, cryptography, and software verification. DFG funded.",category:"de",date:"2025-10-05",url:"https://www.kit.edu/english/",source:"KIT"},
+  {title:"Swiss NSF ERC Starting Grants — Deadline February 2026",summary:"Swiss NSF is accepting early-career researcher applications. Awards up to CHF 1.5M for 5-year projects in Switzerland.",category:"ch",date:"2025-10-06",url:"https://www.snf.ch/en",source:"SNF"},
+  {title:"Max Planck Institute — Multiple PhD Openings in ML",summary:"MPI for Intelligent Systems in Tübingen has PhD openings in machine learning, robotics, and probabilistic AI. World-class research environment.",category:"phd",date:"2025-10-06",url:"https://www.mpg.de/en/career",source:"Max Planck Society"},
 ];
 </script>
 </body>
